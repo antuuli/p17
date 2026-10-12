@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>NuPS P17 Tournaments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: one wide schedule table, with a short "what's next" strip and filter bar above it. Turf-and-chalk palette. */
+:root {
+  --bg: #f6f8f5;
+  --surface: #ffffff;
+  --fg: #17211b;
+  --muted: #5d6b62;
+  --line: #dde4de;
+  --accent: #1f6b45;
+  --accent-soft: #e3f0e8;
+  --yes: #1f6b45;
+  --yes-bg: #dcefe3;
+  --warn: #8a5a00;
+  --warn-bg: #fbefd2;
+  --bad: #9b2c2c;
+  --bad-bg: #f7e1e1;
+  --hint-bg: #eef1ef;
+  --en: #3d5f93;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1612; --surface: #16201a; --fg: #e6ede8; --muted: #9aaba0; --line: #2a3830;
+    --accent: #6cc99a; --accent-soft: #1d3326; --yes: #8fdcb2; --yes-bg: #1d3a2a;
+    --warn: #f0c46a; --warn-bg: #3a2f14; --bad: #f2a3a3; --bad-bg: #3d2020; --hint-bg: #1f2a24; --en: #8fb1e3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1612; --surface: #16201a; --fg: #e6ede8; --muted: #9aaba0; --line: #2a3830;
+  --accent: #6cc99a; --accent-soft: #1d3326; --yes: #8fdcb2; --yes-bg: #1d3a2a;
+  --warn: #f0c46a; --warn-bg: #3a2f14; --bad: #f2a3a3; --bad-bg: #3d2020; --hint-bg: #1f2a24; --en: #8fb1e3;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1500px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: flex; flex-direction: column; gap: 22px; }
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5vw, 44px); line-height: 1; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); max-width: 70ch; margin: 0; }
+
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.panel h2 { font-family: var(--font-display); font-size: 19px; font-weight: 600; margin: 0; letter-spacing: .01em; }
+.panel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.panel li { display: flex; gap: 10px; align-items: baseline; }
+.panel .d { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 5.5em; }
+.panel .n { color: var(--muted); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.group > span { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-right: 2px; }
+.chip { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.chip:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
+.count { color: var(--muted); font-size: 14px; margin-left: auto; }
+
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+thead th { position: sticky; top: 0; background: var(--surface); text-align: left; font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 10px 5px; border-bottom: 2px solid var(--line); line-height: 1.15; vertical-align: bottom; }
+tbody td { padding: 11px 5px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tr.period td { background: var(--accent-soft); font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: .03em; padding: 7px 10px; color: var(--accent); }
+tr.past td { background: var(--hint-bg); }
+tr.past .name { text-decoration: line-through; text-decoration-color: var(--muted); }
+.date { font-variant-numeric: tabular-nums; font-weight: 600; }
+.date small { display: block; font-weight: 400; color: var(--muted); white-space: normal; max-width: 13em; }
+.name { font-weight: 600; font-size: 14.5px; color: var(--fg); text-decoration: none; display: block; }
+a.name:hover { color: var(--accent); text-decoration: underline; }
+.where { font-size: 12.5px; margin-top: 3px; }
+tbody td.c-name { min-width: 8em; }
+.org, .small { color: var(--muted); font-size: 13px; }
+.badge { display: inline-block; font-size: 11.5px; font-weight: 600; letter-spacing: .03em; padding: 3px 8px; border-radius: 4px; margin-top: 4px; white-space: nowrap; }
+.b-ok { background: var(--yes-bg); color: var(--yes); }
+.b-est { background: var(--hint-bg); color: var(--muted); }
+.b-warn { background: var(--warn-bg); color: var(--warn); }
+.b-bad { background: var(--bad-bg); color: var(--bad); }
+.b-new { background: var(--warn-bg); color: var(--warn); }
+.fmt b { font-variant-numeric: tabular-nums; }
+.num { font-variant-numeric: tabular-nums; }
+.io { font-weight: 600; }
+.io-in { color: var(--accent); }
+.io-out { color: var(--fg); }
+.io-both { color: var(--warn); }
+.io-na { color: var(--muted); font-weight: 400; }
+.entry { display: inline-flex; flex-direction: column; gap: 2px; padding: 3px 8px; border-radius: 6px; font-size: 13px; line-height: 1.3; }
+.e-yes { background: var(--yes-bg); color: var(--yes); font-weight: 600; }
+.e-prev { background: var(--hint-bg); color: var(--fg); }
+.e-no, .e-unknown, .e-notopen { color: var(--muted); padding-left: 0; }
+.dl-soon { color: var(--warn); font-weight: 600; }
+.dl-past { color: var(--muted); text-decoration: line-through; }
+a { color: var(--accent); }
+td a.go { white-space: nowrap; font-weight: 600; }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; display: flex; flex-direction: column; gap: 6px; max-width: 90ch; }
+footer p { margin: 0; }
+/* Tabs + season plan */
+.tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); }
+.tab { font: inherit; font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: .02em; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 8px 14px; color: var(--muted); cursor: pointer; }
+.tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.tab .cnt { font-family: var(--font-body); font-size: 12px; font-weight: 600; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 1px 7px; margin-left: 4px; vertical-align: 2px; }
+.view { display: flex; flex-direction: column; gap: 22px; }
+.view[hidden] { display: none; }
+.plan-intro { color: var(--muted); max-width: 72ch; margin: 0; }
+.plan-sec { display: flex; flex-direction: column; gap: 12px; }
+.plan-sec h2 { font-family: var(--font-display); font-size: 24px; font-weight: 700; margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.plan-sec h2 small { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--muted); }
+.meter { display: flex; gap: 5px; }
+.meter i { width: 26px; height: 8px; border-radius: 3px; background: var(--line); }
+.meter i.on { background: var(--accent); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 12px; }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.pcard.base { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.pcard .top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.pcard .when { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 13px; }
+.pcard dl { display: grid; grid-template-columns: 7.5em 1fr; gap: 4px 10px; margin: 0; font-size: 13px; }
+.pcard dt { color: var(--muted); }
+.pcard dd { margin: 0; min-width: 0; }
+.cal { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 12px; }
+.month { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.month h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0; }
+.mgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-size: 12px; font-variant-numeric: tabular-nums; }
+.mgrid .wd { color: var(--muted); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding-bottom: 2px; }
+.mgrid .day { padding: 4px 0; border-radius: 4px; color: var(--fg); }
+.mgrid .day.we { color: var(--muted); }
+.mgrid .day.ev { background: var(--accent); color: var(--bg); font-weight: 700; }
+.mgrid .day.ev.start { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.mgrid .day.today { outline: 1.5px solid var(--warn); }
+.mgrid .day.en { background: var(--en); color: var(--bg); font-weight: 700; }
+.mgrid .day.clash { box-shadow: inset 0 -3px 0 var(--warn); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.dot.base { background: var(--accent); }
+.dot.en { background: var(--en); }
+.mevents .cl { color: var(--warn); font-weight: 600; font-size: 11.5px; }
+#h-cal small .dot + * { margin-right: 0; }
+.mevents { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; }
+.mevents li { display: flex; gap: 8px; align-items: flex-start; line-height: 1.35; }
+.mevents li .dot { margin-top: calc(.675em - 4.5px); }
+#h-cal small .dot { vertical-align: middle; margin: 0 3px 0 8px; }
+.mevents .dd { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 4.6em; }
+.mevents .ov { color: var(--muted); font-size: 11.5px; }
+.costsum { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 10px; }
+.costsum .k { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.costsum .k b { font-family: var(--font-display); font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.costsum .k span { font-size: 13px; color: var(--muted); }
+.costs td.n, .costs th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.costs td .pp { display: block; font-size: 12px; color: var(--muted); }
+.costs tfoot td { font-weight: 700; border-top: 2px solid var(--line); border-bottom: 0; }
+.costs tfoot tr.std td { font-weight: 500; color: var(--muted); border-top: 0; }
+.cal.big { grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); }
+.mgrid .day.ot { background: var(--hint-bg); color: var(--fg); font-weight: 600; box-shadow: inset 0 0 0 1px var(--line); }
+.dot.ot { background: var(--muted); opacity: .55; }
+.mevents a { color: var(--fg); text-decoration: none; }
+.mevents a:hover { text-decoration: underline; color: var(--accent); }
+.tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .03em; padding: 0 5px; border-radius: 3px; margin-left: 4px; vertical-align: 1px; }
+.tag.base { background: var(--yes-bg); color: var(--yes); }
+.tag.en { background: var(--en); color: var(--bg); }
+.tag.sl { background: var(--hint-bg); color: var(--muted); }
+.mevents li.ot-item { color: var(--muted); }
+.longlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 6px 16px; font-size: 13.5px; }
+.longlist li { display: flex; gap: 8px; align-items: flex-start; }
+.longlist li .dot { margin-top: .45em; }
+.longlist a { color: var(--fg); font-weight: 600; text-decoration: none; }
+.pcard .pnote { margin: 0; font-size: 13px; background: var(--hint-bg); border-radius: 6px; padding: 8px 10px; }
+.pcard textarea { font: inherit; font-size: 13px; width: 100%; box-sizing: border-box; min-height: 52px; resize: vertical; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.pcard .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font: inherit; font-size: 13.5px; font-weight: 600; border-radius: 6px; padding: 6px 12px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn.quiet { color: var(--muted); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn:focus-visible, .tab:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.three { font-size: 12px; font-weight: 600; }
+.three.ok { color: var(--yes); }
+.three.no { color: var(--warn); }
+.addrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.addrow select { font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); max-width: 100%; min-width: 0; flex: 1 1 280px; }
+.empty-plan { background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 18px; color: var(--muted); }
+.notice { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: 14px; }
+.plan-btn { font: inherit; font-size: 12px; font-weight: 600; margin-top: 6px; padding: 3px 8px; border-radius: 5px; border: 1px solid var(--line); background: var(--surface); color: var(--accent); cursor: pointer; display: inline-block; }
+.plan-btn.in { background: var(--accent-soft); border-color: transparent; }
+.series { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--surface); }
+.seriesbox { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+.series th, .series td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.series th { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.series tr:last-child td { border-bottom: 0; }
+.series td b { font-variant-numeric: tabular-nums; }
+@media print {
+  .tabs, #view-cal { display: none !important; }
+  .wrap { display: flex; flex-direction: column; }
+  #view-plan { display: flex !important; order: 1; break-after: page; gap: 12px; }
+  #view-list { display: flex !important; order: 2; }
+  header { order: 0; }
+  .plan-sec { gap: 8px; break-inside: auto; }
+  .plan-sec h2 { font-size: 16px; }
+  .plan-intro { font-size: 10px; max-width: none; }
+  .cal { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .month { padding: 8px 10px; gap: 5px; break-inside: avoid; }
+  .month h3 { font-size: 13px; }
+  .mgrid { font-size: 8.5px; gap: 1px; }
+  .mgrid .wd { font-size: 7px; }
+  .mgrid .day { padding: 2px 0; }
+  .mevents { font-size: 8.5px; gap: 2px; }
+  .mevents .ov, .mevents .cl { font-size: 8px; }
+  .dot { width: 6px; height: 6px; }
+  .mevents li .dot { margin-top: calc(.675em - 3px); }
+  .cards { grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .pcard { padding: 8px 10px; gap: 5px; break-inside: avoid; }
+  .pcard .name { font-size: 10px; }
+  .pcard .when, .three { font-size: 8.5px; }
+  .pcard dl { font-size: 7.8px; grid-template-columns: 5.6em 1fr; gap: 1px 5px; }
+  .pcard .pnote { font-size: 7.8px; padding: 4px 6px; }
+  .seriesbox { border-radius: 0; }
+  .series { font-size: 9px; }
+  .costsum { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .costsum .k { padding: 5px 8px; }
+  .costsum .k b { font-size: 15px; }
+  .costsum .k span, .costs td .pp { font-size: 8px; }
+  section[aria-labelledby="h-cal"], section[aria-labelledby="h-cost"], section[aria-labelledby="h-short"], section[aria-labelledby="h-series"], section[aria-labelledby="h-lul"], section[aria-labelledby="h-base"] { break-inside: avoid; }
+  .mgrid .day { padding: 0; line-height: 1.25; }
+  .month { gap: 2px; padding: 4px 8px; }
+  .cal { gap: 6px; }
+  .month h3 { font-size: 11px; }
+  .mgrid { font-size: 7.6px; }
+  .mevents { font-size: 7.6px; gap: 0; }
+  .mevents li { gap: 5px; }
+  .mevents .dd { min-width: 3.6em; }
+  header { gap: 2px; }
+  h1 { font-size: 22px; }
+  #view-plan { gap: 8px; }
+  .costs td, .costs th { padding: 3px 6px; }
+  .costs td .pp { display: inline; margin-left: 4px; }
+  .costs td .pp.small { display: block; margin-left: 0; }
+  .series th, .series td { padding: 4px 6px; }
+  .series th { font-size: 8px; }
+  .meter i { width: 16px; height: 6px; }
+}
+@media (max-width: 600px) { .wrap { padding-inline: 16px; } .count { margin-left: 0; width: 100%; } }
+/* Narrow screens: each tournament becomes a stacked card instead of a table row */
+@media screen and (max-width: 960px) {
+  .tablebox { background: none; border: 0; }
+  table, tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
+  thead { display: none; }
+  tbody { display: flex; flex-direction: column; gap: 12px; }
+  tbody tr { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px 16px; }
+  tbody td { padding: 0; border: 0; min-width: 0; }
+  tbody td::before { content: attr(data-label); display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  tbody td.c-name { grid-column: 1 / -1; order: -2; }
+  tbody td.c-name::before, tbody td.c-date::before { display: none; }
+  tbody td.c-date { grid-column: 1 / -1; order: -3; }
+  tr.period { background: none; border: 0; padding: 8px 0 0; display: block; }
+  tr.period td { background: none; padding: 0; font-size: 18px; }
+  tr.period td::before { display: none; }
+  tr.past td { background: none; }
+  tr.past { background: var(--hint-bg); }
+  .empty { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+}
+@media screen and (max-width: 420px) { tbody tr { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Nummelan Palloseura · Pojat 2017 (P9 → P10 / U10)</div>
+    <h1>NuPS P17 Tournaments</h1>
+    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 9.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab" role="tab" id="tab-list" aria-controls="view-list" aria-selected="true">Tournaments</button>
+    <button class="tab" role="tab" id="tab-plan" aria-controls="view-plan" aria-selected="false">Season plan <span class="cnt" id="plan-count" hidden></span></button>
+    <button class="tab" role="tab" id="tab-cal" aria-controls="view-cal" aria-selected="false">All events</button>
+  </nav>
+
+  <div class="view" id="view-list" role="tabpanel" aria-labelledby="tab-list">
+
+  <section class="strip" aria-label="Summary">
+    <div class="panel">
+      <h2>NuPS already entered</h2>
+      <ul id="entered"></ul>
+    </div>
+    <div class="panel">
+      <h2>Next deadlines &amp; early-bird dates</h2>
+      <ul id="deadlines"></ul>
+    </div>
+  </section>
+
+  <section class="filters" aria-label="Filters">
+    <div class="group" id="f-period"><span>Period</span></div>
+    <div class="group" id="f-format"><span>Format</span></div>
+    <div class="group" id="f-io"><span>Venue</span></div>
+    <label class="check"><input type="checkbox" id="f-nups"> NuPS entered or played 2026</label>
+    <label class="check"><input type="checkbox" id="f-confirmed"> Only confirmed 2026–27 info</label>
+    <div class="count" id="count"></div>
+  </section>
+
+  <div class="tablebox">
+    <table>
+      <thead>
+        <tr>
+          <th>Dates</th>
+          <th>Tournament &amp; place</th>
+          <th>In / out</th>
+          <th>Levels</th>
+          <th>Format</th>
+          <th>Match length</th>
+          <th>Guar. games</th>
+          <th>Fee / team</th>
+          <th>Reg. deadline</th>
+          <th>NuPS entered</th>
+          <th>FCK entered</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p><b>Status badges.</b> "Confirmed" means the organizer has published the 2026–27 edition. "Based on 2026" means only last year's edition was found, so dates, formats and fees may change. Palloliitto's 2027 format changes mean some P10 series move between 5v5, 7v7 and 8v8.</p>
+    <p><b>NuPS / FCK columns</b> come from the published team lists on 9.10.2026. "2026:" shows where the team played last year's edition as P9. "Not open" means registration hasn't started, so no list exists yet.</p>
+    <p><b>Left out:</b> small distant one-day events (MP Mikkeli, Rauma, Vaasa, Nivala, Seinäjoki), invitation-only academy cups (HJK Cup, Ilves Cup), and tournaments with no 2017 boys series (Hyvinkää Kevätturnaus and 5v5 Eloturnaus, Alandia Cup, FC Honka Kevätturnaus for U10, NuPS's own Rosenström Cup and Lapin Kumi Cup).</p>
+  </footer>
+  </div>
+
+  <div class="view" id="view-cal" role="tabpanel" aria-labelledby="tab-cal" hidden>
+    <p class="plan-intro">Every tournament and series on this page, month by month. Filled days: <span class="dot base"></span> base tournament, <span class="dot en"></span> NuPS already entered, <span class="dot ot"></span> other events. Events with only an approximate date are listed under their month with ≈ and not marked on a day.</p>
+    <section class="plan-sec" aria-labelledby="h-long">
+      <h2 id="h-long">Season-long series <small>no single game days on this calendar</small></h2>
+      <ul class="longlist" id="longlist"></ul>
+    </section>
+    <div class="cal big" id="allcal"></div>
+  </div>
+
+  <div class="view" id="view-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+    <p class="plan-intro">Base tournaments are the 4–5 events where the whole group plays, one team each at Kilpa, Haaste and Harraste. The shortlist holds candidates still being considered. Plan updated <span id="plan-updated"></span>.</p>
+
+    <section class="plan-sec" aria-labelledby="h-cal">
+      <h2 id="h-cal">Calendar <small><span class="dot base"></span> base tournaments <span class="dot en"></span> already entered</small></h2>
+      <div class="cal" id="cal"></div>
+      <p class="small">Game dates for the Palloliitto series (spring 2027) and Länsi-Uudenmaan liiga 2027 aren't known yet, so they're not on the calendar.</p>
+    </section>
+
+    <section class="plan-sec" aria-labelledby="h-cost">
+      <h2 id="h-cost">Entry fees <small>base tournaments, three teams</small></h2>
+      <div class="costsum" id="costsum"></div>
+      <div class="seriesbox"><table class="series costs" id="costs"></table></div>
+      <p class="small" id="costnote"></p>
+    </section>
+
+    <section class="plan-sec" aria-labelledby="h-base">
+      <h2 id="h-base">Base tournaments <span class="meter" id="meter" aria-hidden="true"></span><small id="base-count"></small></h2>
+      <div id="base-list"></div>
+    </section>
+
+    <section class="plan-sec" aria-labelledby="h-short">
+      <h2 id="h-short">Shortlist <small>candidates still being considered</small></h2>
+      <div id="short-list"></div>
+    </section>
+
+    <section class="plan-sec" aria-labelledby="h-series">
+      <h2 id="h-series">Palloliitto series <small>Etelä district, three NuPS teams</small></h2>
+      <div class="seriesbox">
+        <table class="series">
+          <thead><tr><th>Team</th><th>Autumn 2026 (P9)</th><th>Spring 2026 (P9)</th><th>Spring 2027 (P10)</th></tr></thead>
+          <tbody>
+            <tr><td><b>NuPS</b></td><td>Lohko <b>1</b> · 20 teams, 18 rounds</td><td>Taso <b>1B</b> · 14 teams</td><td class="small">Not assigned yet</td></tr>
+            <tr><td><b>NuPS/musta</b></td><td>Lohko <b>5</b> · 20 teams, 18 rounds</td><td>Taso <b>3B</b> · 16 teams</td><td class="small">Not assigned yet</td></tr>
+            <tr><td><b>NuPS/punainen</b></td><td>Lohko <b>8</b> · 16 teams, 18 rounds</td><td>Taso <b>5B</b> · 14 teams</td><td class="small">Not assigned yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Lohko numbers run from strongest (1) to most recreational (8). P9 series publish no standings. FC Kirkkonummi plays in Lohko 1, 3 and 6. <a href="https://tulospalvelu.palloliitto.fi/category/P9!etejp26/tables" target="_blank" rel="noopener">Palloliitto tables ↗</a></p>
+    </section>
+
+    <section class="plan-sec" aria-labelledby="h-lul">
+      <h2 id="h-lul">Länsi-Uudenmaan liiga 2027 <span class="badge b-new">Not confirmed</span> <small>GrIFK Fotboll, three NuPS teams registered</small></h2>
+      <div class="seriesbox">
+        <table class="series">
+          <thead><tr><th>Team</th><th>Series (2017)</th><th>Format</th><th>Registered so far</th></tr></thead>
+          <tbody>
+            <tr><td><b>NuPS</b></td><td>Pojat 10 Kilpa</td><td>7v7 · 25 min</td><td>2 teams (NuPS, GrIFK/Brommapojkarna)</td></tr>
+            <tr><td><b>NuPS/musta</b></td><td>Pojat 10 Haaste</td><td>5v5 · 25 min</td><td>3 teams (NuPS/musta, GrIFK/AIK, GrIFK/Hammarby)</td></tr>
+            <tr><td><b>NuPS/valkoinen</b></td><td>Pojat 10 Harraste</td><td>5v5 · 25 min</td><td>2 teams (NuPS/valkoinen, GrIFK/Djurgården)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">A series runs only if at least 8 teams register (max 16 per level). Mid-April to mid-October, about one event a month (no games in July), mostly weekends: 6 events and at least 18 games per team. Indoors at GrIFK Areena, Kauniainen in April–early May and late Sept–Oct; outdoors in Kirkkonummi, Lohja or Nummela in May–June and Aug–Sept. €90 per team for the season. Registration and free cancellation until 31.1.2027. Spring schedule out in February 2027, autumn schedule by May. <a href="https://lansiuudenmaanliiga.torneopal.fi/" target="_blank" rel="noopener">Länsi-Uudenmaan liiga ↗</a></p>
+    </section>
+  </div>
+</div>
+
+<script>
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+// st: "ok" confirmed 2026–27 info | "est" based on 2026 edition
+// entry s: yes | prev (played 2026 edition) | no | notopen | unknown
+const T = [
+  { id:"ppj-tuplakupla-cup", name:"PPJ TuplaKupla Cup", io:"in", org:"PPJ", start:"2026-10-03", city:"Helsinki", venue:"Intersport Areena, Jätkäsaari (indoor)",
+    levels:"Eliitti, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Eliitti <b>7v7</b> · others <b>5v5</b>",
+    match:"1×20 min", games:"min 4", fee:"€129 Eliitti · €109 others", dl:[{text:"Closed"}],
+    nups:{s:"yes",t:"Haaste (NuPS/musta) · no results published"}, fck:{s:"yes",t:"Eliitti: won, 1st of 15 · Kilpa, Haaste"}, url:"https://tuplakuplacup.torneopal.fi/", st:"ok" },
+
+  { id:"helsingin-talviliiga", name:"Helsingin Talviliiga 2026–27", io:"in", org:"Käpylä United · league", start:"2026-10-03", end:"2027-04-11", dateNote:"Weekends, 6 game days",
+    city:"Helsinki", venue:"Halls in Jätkäsaari, Käpylä, Lauttasaari, Myllypuro",
+    levels:"Eliitti, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> all levels · Eliitti also <b>7v7</b>",
+    match:"5v5 1×20 min · 7v7 1×25 min", games:"18 (5v5) · 10 (7v7)", fee:"€329 (5v5) · €499 (7v7)",
+    dl:[{text:"Eliitti 5v5: 3 spots left · Eliitti 7v7: 1 spot left · others full", warn:true}],
+    nups:{s:"no"}, fck:{s:"no",t:"only girls 2017"}, url:"https://talviliiga.torneopal.fi/", url2:"https://talviliiga.com/sarjat/", st:"ok" },
+
+  { id:"p-shortsiturnaus", name:"P2017 Shortsiturnaus", io:"in", org:"KEIKA P2017", start:"2026-10-24", city:"Vantaa", venue:"Myyrmäkihalli (indoor)",
+    levels:"Kilpa, Haaste, Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"min 3", fee:"€150",
+    dl:[{text:"Open, no deadline stated · 28 teams so far (Kilpa 6, Haaste 13, Harraste 9)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.gameresultsonline.com/keika-p2017/shortsiturnaus-p2017-harraste-haaste-ja-kilpa", st:"ok" },
+
+  { id:"winterliiga", name:"Winterliiga 2026–27", io:"both", ioNote:"Halls + heated turf · Elite indoor only", org:"HJK & Käpylän Pallo · league", start:"2026-10-31", end:"2027-03-14", dateNote:"Last P2017 day 13–14.3 · schedule out 13.10",
+    city:"Helsinki / Vantaa", venue:"KäPa Campus, Peakfin Arena, Pajamäki, Pikkupekka Areena, Töölö kupla…",
+    levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Elite/Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
+    match:"1×25 min", games:"min 10 (7v7) · min 15 (5v5)", fee:"€495 7v7 (Elite indoor €690) · €345 5v5",
+    dl:[{date:"2026-09-13",label:"closed (queue list open)"}], nups:{s:"no"}, fck:{s:"yes",t:"Elite 7v7"},
+    url:"https://winterliiga.torneopal.fi/", st:"ok" },
+
+  { id:"italiiga-p", name:"Itäliiga P2017", io:"in", org:"FC Kontu · 3 single days", start:"2026-11-07", dateText:"7.11 · 19.12 · 13.2.2027", dateNote:"Enter each day separately",
+    city:"Helsinki", venue:"Jakomäki-Areena (heated bubble)",
+    levels:"Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
+    match:"1×25 min", games:"about 2 per day", fee:"€65 per day",
+    dl:[{text:"Google form on FC Kontu's page"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"no"},
+    url:"https://www.fckontu.fi/seura/3293/italiiga", st:"ok" },
+
+  { id:"espoon-talvisarja", name:"Espoon Talvisarja 2026–27", io:"in", org:"EPS · season series", start:"2026-11-08", end:"2027-03-21", dateText:"8.11 · 29.11 · 10.1 · 31.1 · 7.3 · 21.3", dateNote:"Sundays · 10.1, 31.1 and 7.3 clash with GrIFK Talviliiga (NuPS/musta in both)",
+    city:"Espoo", venue:"Myntinsyrjä hall (warm indoor)",
+    levels:"Taso 2 Haaste, Taso 3 Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"18 min", games:"18 (3 per day)", fee:"€445",
+    dl:[{text:"Full · reserve list for Taso 2"}], nups:{s:"yes",t:"Taso 2 Haaste (NuPS/musta)"}, fck:{s:"no"},
+    url:"https://espoontalvisarja.torneopal.fi/", st:"ok" },
+
+  { id:"saastopankki-turnaus", name:"Säästöpankki-turnaus", io:"in", org:"HJS Hämeenlinna", start:"2026-11-21", dateNote:"Same day as IIF minicup (NuPS in both)", city:"Hämeenlinna", venue:"Säästöpankki-areena (indoor, ~18 °C)",
+    levels:"Kilpa, Harraste", fmt:["5v5","8v8"], fmtText:"Kilpa <b>8v8</b> · Harraste <b>5v5</b>",
+    match:"1×25 min", games:"4 (3 group + 1 placement)", fee:"€245 Kilpa · €195 Harraste",
+    dl:[{text:"Kilpa full (8/8) · Harraste open (4/16)"}], nups:{s:"yes",t:"Kilpa 8v8 (NuPS)"}, fck:{s:"no"},
+    url:"https://talviturnaus.hjs.fi/", st:"ok" },
+
+  { id:"iif-minicup", name:"IIF minicup", io:null, org:"Ingå IF", start:"2026-11-21", dateText:"21.11.2026 · 6.2.2027", dateNote:"21.11 is the same day as Säästöpankki-turnaus",
+    city:"Inkoo", venue:"Nylund Arena, Kanonvägen 3",
+    levels:"P2017 (details not published)", fmt:[], fmtText:"—", match:"—", games:"—", fee:"—",
+    dl:[{text:"Ask IIF · 21.11: 6 teams · 6.2: 1 team so far"}], nups:{s:"yes",t:"21.11 (NuPS P17 / valkoinen)"}, fck:{s:"no"},
+    url:"https://www.fudisturnaus.com/t/iif-minicup-syksy-2026", st:"ok" },
+
+  { id:"kinkunsulatusturnaus", name:"Kinkunsulatusturnaus", io:"in", org:"TuPS", start:"2027-01-06", dateText:"6.1.2027 (expected)", dateNote:"First held 6.1.2026 (P7–P9 only)",
+    city:"Tuusula", venue:"Tekova Areena (indoor)",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"25 min", games:"3", fee:"€135 (€145 after Oct) in 2026",
+    dl:[{text:"Not published · 2026 only had P7–P9, a P10 series isn't certain · TuPS merges into a new club from 11/2026"}],
+    nups:{s:"prev",t:"2026: Kilpa + Haaste"}, fck:{s:"no"}, url:"https://kinkunsulatusturnaus.torneopal.fi/", st:"est" },
+
+  { id:"talvi-aura-cup", name:"Talvi Aura Cup 2027", io:"in", org:"FC TPS", start:"2027-01-10", city:"Turku", venue:"Impivaaran jalkapallohalli (indoor)",
+    levels:"Kilpa, Haaste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"20 min", games:"6", fee:"€150",
+    dl:[{text:"Kilpa open (3/6) · Haaste full (2 in queue)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://talviauracup2027.torneopal.fi/", st:"ok" },
+
+  { id:"hjk-talviturnaus", name:"HJK Talviturnaus 2027", io:"in", org:"HJK", start:"2027-01-30", city:"Helsinki", venue:"Töölö kuplahalli (indoor)",
+    levels:"Harraste only", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"25 min", games:"4 (rules: 3–4)", fee:"€105 early bird · then €125",
+    dl:[{date:"2026-11-15",label:"early bird ends"},{date:"2026-11-30",label:"free cancellation ends"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://hjktalvi.torneopal.fi/", st:"ok" },
+
+  { id:"hjk-7v7-kevatturnaus", name:"HJK 7v7 Kevätturnaus", io:"out", org:"HJK", start:"2027-03-27", dateText:"Late March 2027?", dateNote:"Only a 2026 edition (28–29.3) · Easter is 28.3.2027",
+    city:"Helsinki", venue:"Pajamäki",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"—", fee:"—",
+    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
+    url:"https://hjkkevat.torneopal.fi/", st:"est" },
+
+  { id:"kultanummiturnaus", name:"Kultanummiturnaus", io:"out", org:"Littoisten Työväen Urheilijat", start:"2027-04-10", dateText:"April 2027", dateNote:"2026 was 11–12.4",
+    city:"Lieto / Kaarina", venue:"Kultanummi",
+    levels:"Kilpa, Haaste (2026)", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"2×15 min", games:"—", fee:"€220 (2026)",
+    dl:[{text:"2026 deadline was 28.2"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
+    url:"https://kultanummiturnaus.torneopal.fi/", st:"est" },
+
+  { id:"helsinki-kick-off-cup", name:"Helsinki Kick Off Cup", io:"in", org:"PPJ", start:"2027-04-17", dateText:"April 2027?", dateNote:"Only a 2026 edition (18–19.4) so far",
+    city:"Helsinki", venue:"Intersport Areena, Jätkäsaari",
+    levels:"Elite, Kilpa, Haaste, Harraste (2026)", fmt:["5v5","7v7"], fmtText:"Elite/Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
+    match:"25 min", games:"6", fee:"—", dl:[{text:"Not published"}],
+    nups:{s:"no",t:"2026: no"}, fck:{s:"prev",t:"2026: Elite (2nd) + Kilpa"}, url:"https://helsinkickoff.torneopal.fi/", st:"est" },
+
+  { id:"pk-35-helsinki-open", name:"PK-35 Helsinki Open 2027", io:"out", org:"PK-35", start:"2027-04-25", dateNote:"P2017 plays Sunday",
+    city:"Helsinki", venue:"Pihlajamäki",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"3", fee:"€99",
+    dl:[{text:"Registration opens later"},{date:"2026-12-31",label:"free cancellation ends (after registering)"}], nups:{s:"prev",t:"2026: Kilpa + Haaste (Punainen)"}, fck:{s:"no",t:"2026: no"},
+    url:"https://juniorit.pk-35.fi/toiminta/turnaukset/", st:"ok" },
+
+  { id:"fc-viikingit-kevatfestivaalit", name:"FC Viikingit Kevätfestivaalit", io:"out", org:"FC Viikingit", start:"2027-05-08", end:"2027-05-09", dateText:"May 2027 (≈ 8–9.5)", dateNote:"Every May since 2023 · 2026 was 9–10.5",
+    city:"Helsinki", venue:"Vuosaari",
+    levels:"P10 series; levels not published", fmt:["8v8"], fmtText:"P10 <b>8v8</b> (2026)", match:"1×25 min", games:"min 4", fee:"€125 early · €150 (2026)",
+    dl:[{text:"2026: early bird until 15.1, deadline 19.4"}], nups:{s:"prev",t:"2026: P2017 Eliitti 7v7"}, fck:{s:"no",t:"2026: no"},
+    url:"https://www.gameresultsonline.com/fc-viikingit-ry/kevatfestivaalit-2026", st:"est" },
+
+  { id:"kevatturnaus", name:"Kevätturnaus 2027", io:"out", org:"Käpylän Pallo", start:"2027-05-29", end:"2027-05-30", city:"Helsinki", venue:"Käpylän urheilupuisto & KäPa Campus",
+    levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> · Elite <b>7v7</b>",
+    match:"18 min (5v5) · 25 min (7v7)", games:"6", fee:"5v5 €220 · 2 teams €380 · 3 €555 · 4 €700 · Elite 7v7 €395",
+    dl:[{date:"2026-11-01",label:"registration opens"},{date:"2027-03-21",label:"or when full"}],
+    nups:{s:"notopen"}, fck:{s:"notopen"}, url:"https://kevatturnaus.com/", st:"ok" },
+
+  { id:"lohja-cup-op-uusimaa", name:"Lohja Cup (OP Uusimaa)", io:"out", org:"Lohjan Pallo", start:"2027-06-05", dateText:"Early June 2027", dateNote:"2026 was 6–7.6",
+    city:"Lohja", venue:"Asemanpelto & Virkkala",
+    levels:"4 levels (2026)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026)", match:"1×25 min", games:"4–5", fee:"€150 early · €165 (2026)",
+    dl:[{text:"Not published"}], nups:{s:"prev",t:"2026: Kilpa + Harraste (valkoinen)"}, fck:{s:"prev",t:"2026: 6 teams, Kilpa–Harraste"},
+    url:"https://www.gameresultsonline.com/lohjan-pallo/poikien-16-op-uusimaa-lohja-cup", st:"est" },
+
+  { id:"kerava-cup", name:"Kerava Cup", io:"out", org:"KP-75", start:"2027-06-05", dateText:"June 2027", dateNote:"2026 was 6–7.6",
+    city:"Kerava", venue:"Kalevan urheilupuisto",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026)", match:"2×15 min", games:"5–6", fee:"€200 · 2 €380 · 3 €560 (2026)",
+    dl:[{text:"2026 deadline was 30.4"}], nups:{s:"no",t:"no 2017 series in 2026"}, fck:{s:"no",t:"no 2017 series in 2026"},
+    url:"https://keravacup.torneopal.fi/", st:"est" },
+
+  { id:"porvoo-cup", name:"Porvoo Cup 2027", io:"out", org:"FC Futura Juniorit", start:"2027-06-12", dateNote:"5v5 series on Saturday",
+    city:"Porvoo", venue:"Hamari, Kokonniemi, Uusimaa Areena…",
+    levels:"Kilpa, Haaste, Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×20 min", games:"4 (group games, no playoffs)", fee:"€120 early bird · then €180",
+    dl:[{date:"2026-12-31",label:"early bird ends"},{date:"2027-04-03",label:"free cancellation ends (approx.)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://porvoocup.torneopal.fi/", st:"ok" },
+
+  { id:"vantaa-cup", name:"Vantaa Cup", io:"out", org:"VJS", start:"2027-06-12", dateText:"June 2027", dateNote:"2026: 5v5 on 13–14.6, 8v8 on 26–28.6",
+    city:"Vantaa", venue:"—",
+    levels:"Kutsu, Avoin, Harraste (2026 U10)", fmt:["5v5","8v8"], fmtText:"<b>5v5</b> or <b>8v8</b> event", match:"2×20 min (Harraste 2×15)", games:"6 (Harraste 5)", fee:"—",
+    dl:[{text:"Not published"}], nups:{s:"prev",t:"2026: U9 5v5 (NuPS/musta)"}, fck:{s:"no",t:"2026: no"},
+    url:"https://vjs.fi/vantaacup/", st:"est" },
+
+  { id:"stadium-turnaus", name:"Stadium-turnaus 2027", io:"out", org:"HJS Hämeenlinna", start:"2027-06-19", end:"2027-06-20", city:"Hämeenlinna", venue:"Pullerin kentät",
+    levels:"Kilpa, Harraste", fmt:[], fmtText:"not stated", match:"—", games:"—", fee:"€195", feeNote:"School lodging €32/person/night · meals €11",
+    dl:[{date:"2026-12-01",label:"registration opens"},{text:"Deadline 24.5 (page says 2026, likely means 2027)"}],
+    nups:{s:"notopen"}, fck:{s:"notopen"}, url:"https://kevatturnaus.hjs.fi/", st:"ok" },
+
+  { id:"kesa-aura-cup", name:"Kesä Aura Cup 2027", io:"out", org:"FC TPS", start:"2027-07-02", end:"2027-07-04", city:"Turku", venue:"Kupittaa, Veritas Stadion, Urheilupuisto",
+    levels:"Kutsu (invitation), Kilpa, Haaste", fmt:["5v5","7v7"], fmtText:"Kutsu/Kilpa <b>7v7</b> (offside zone) · Haaste <b>5v5</b>",
+    match:"2×20 min", games:"—", fee:"€380", feeNote:"Partner hotels: Sokos Kupittaa, Scandic Julia, Holiday Club Caribia",
+    dl:[{text:"Open, no deadline stated · Kutsu 4/10, Kilpa 5/16, Haaste 4/16"}], nups:{s:"no"}, fck:{s:"prev",t:"2026: Kilpa"},
+    url:"https://auracup.torneopal.fi/", st:"ok" },
+
+  { id:"helsinki-cup", name:"Helsinki Cup 2027", io:"out", org:"Helsinki Cup", start:"2027-07-12", end:"2027-07-17", dateNote:"B10 5v5 plays Mon–Wed or Tue–Wed · Trophy Tue–Fri",
+    city:"Helsinki / Espoo / Vantaa", venue:"Multiple fields",
+    levels:"Kilpa, Yleinen, Harraste · Trophy", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> · Trophy <b>7v7</b>",
+    match:"2×15 min", games:"6 group games (5v5)", fee:"€415 (€395 early) · Trophy €450 (€430 early)", feeNote:"Includes 10 tournament passes",
+    dl:[{date:"2026-12-31",label:"early bird ends"},{date:"2027-04-30",label:"registration closes"}],
+    nups:{s:"prev",t:"2026: 2× Yleinen + Harraste"}, fck:{s:"prev",t:"2026: Elite 7v7, Yleinen, Harraste"},
+    url:"https://helsinkicup.fi/turnausinfo/sarjat-ja-hinnat/", st:"ok" },
+
+  { id:"kokkola-cup", name:"Kokkola Cup 2027", io:"out", org:"Kokkola Cup", start:"2027-07-22", end:"2027-07-25", dateNote:"B10 plays Thu–Sat 22–24.7, finals Saturday",
+    city:"Kokkola", venue:"—",
+    levels:"B10, groups of 4–6 + placement and A/B finals", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"2×15 min", games:"min 5", fee:"€360 (−50% with lodging package)", feeNote:"School lodging + meals €145/person · dorm €210 · meals only €126 · player fee €10",
+    dl:[{date:"2027-04-30",label:"registration closes"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.kokkolacup.fi/", st:"ok" },
+
+  { id:"tikkurila-cup", name:"Tikkurila Cup", io:"out", org:"TiPS", start:"2027-07-29", dateText:"Late July 2027", dateNote:"2026 was 30.7–2.8",
+    city:"Vantaa", venue:"Tikkurila",
+    levels:"Kilpa, Yleis, Harraste (2026)", fmt:["5v5","7v7","8v8"], fmtText:"<b>5v5</b> / <b>7v7</b> / <b>8v8</b>", match:"20–25 min", games:"—", fee:"—",
+    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"prev",t:"2026: Kilpa 7v7"},
+    url:"https://tikkurilacup.torneopal.fi/", st:"est" },
+
+  { id:"hyvinkaan-eloturnaus", name:"Hyvinkään Eloturnaus 2027", io:"out", org:"HyPS", start:"2027-07-30", end:"2027-08-01", dateNote:"3 games Sat + 3 Sun, optional Fri start",
+    city:"Hyvinkää", venue:"Hyvinkää, Rajamäki, Jokela, Riihimäki",
+    levels:"Taso 1, Taso 2, Taso 3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>",
+    match:"2×18 min", games:"6", fee:"€269 / €239 (early €229 / €209)", feeNote:"Book 2-night school lodging before 1.1.2027 → team fee free (1 night → −50%). Lodging + meals €80 / €120 per person · transport €25",
+    dl:[{date:"2026-12-31",label:"early bird & lodging discount end"},{text:"Early bird also ends when 4 outside teams register; series already show 5–7 teams", warn:true},{date:"2027-03-31",label:"free cancellation ends"}],
+    nups:{s:"no"}, fck:{s:"no"}, url:"https://eloturnaus.torneopal.fi/", st:"ok" },
+
+  { id:"itameri-cup", name:"Itämeri Cup", io:null, org:"FC HIK", start:"2027-07-31", dateText:"Early Aug 2027", dateNote:"2026 was 1–2.8",
+    city:"Hanko", venue:"Rukki Arena",
+    levels:"P10 (2026)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026)", match:"2×20 min", games:"2 days", fee:"€200 (2026)",
+    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
+    url:"https://itamericup.torneopal.fi/", st:"est" },
+
+  { id:"kuopio-cup", name:"Kuopio Cup 2027", io:"out", org:"Kuopio Cup", start:"2027-08-06", end:"2027-08-08", city:"Kuopio", venue:"—",
+    levels:"Taso 1, Taso 2–3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>", match:"—", games:"—", fee:"€299 (early €229)", feeNote:"School lodging + meals €119 (2 nights) / €79 (1 night) per person",
+    dl:[{date:"2027-01-14",label:"early bird ends"},{date:"2027-06-01",label:"registration closes (or when full)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://kuopiocup.torneopal.fi/", st:"ok" },
+
+  { id:"jarvenpaa-cup", name:"Järvenpää Cup", io:"out", org:"Järvenpää", start:"2027-08-07", dateText:"Aug 2027", dateNote:"2026 was 8.8, one day",
+    city:"Järvenpää", venue:"—",
+    levels:"Harraste only (2026)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026)", match:"2×15 min", games:"min 4", fee:"€150 (2026)",
+    dl:[{text:"Not published"}], nups:{s:"no",t:"no 2017 series in 2026"}, fck:{s:"no",t:"no 2017 series in 2026"},
+    url:"https://jarvenpaacup.torneopal.fi/", st:"est" },
+
+  { id:"pingviini-cup", name:"Pingviini Cup 2027", io:"out", org:"Käpylän Pallo", start:"2027-08-14", end:"2027-08-15", city:"Helsinki", venue:"Vallilanlaakso, Käpylä",
+    levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Elite <b>7v7</b> · others <b>5v5</b>",
+    match:"18 min (Elite 25 min)", games:"6", fee:"5v5 €220 · 2 €390 · 3 €555 · 4 €700 · Elite 7v7 €395",
+    dl:[{date:"2027-02-01",label:"registration opens"},{date:"2027-05-31",label:"registration closes"}],
+    nups:{s:"notopen"}, fck:{s:"notopen"}, url:"https://pingviinicup.fi/", st:"ok" },
+
+  { id:"heinacup", name:"HeinäCup 2027", io:"out", org:"Palokan Riento", start:"2027-07-03", end:"2027-07-04", dateNote:"Event 2–4.7 · P2017 plays Sat–Sun",
+    city:"Jyväskylä", venue:"About 15 field areas",
+    levels:"Taso 1, Taso 2, Taso 3 (12 teams each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"2×15 min", games:"6", fee:"€225",
+    dl:[{date:"2027-03-31",label:"registration becomes binding"},{date:"2027-04-30",label:"registration closes"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.heinacup.fi/sarjat", st:"ok", isNew:true },
+
+  { id:"espa-turnaus", name:"EsPa-turnaus", io:"out", org:"Etelä-Espoon Pallo", start:"2027-08-14", dateText:"Mid–late Aug 2027", dateNote:"2026 ran over two weekends, 14–16.8 and 22–23.8",
+    city:"Espoo", venue:"Matinkylä, Opinmäki, Tiistilä, Matinlahti",
+    levels:"Kilpa, Haaste, Harraste (2026 P10)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026 P10)", match:"1×25 min", games:"5", fee:"—",
+    dl:[{text:"Not published · 2026 free cancellation until 30.4"}], nups:{s:"prev",t:"2026: 3 teams (Elite, Kilpa, Harraste)"}, fck:{s:"prev",t:"2026: Elite"},
+    url:"https://espaturnaus.torneopal.fi/", st:"est", isNew:true },
+  { id:"grifk-mcdonalds-talviliiga", name:"GrIFK McDonald's Talviliiga 2026–27", io:"in", org:"GrIFK Fotboll · league", start:"2026-10-25", end:"2027-04-04", dateText:"25.10 · 15.11 · 10.1 · 31.1 · 7.3 · 4.4", dateNote:"Sundays 8–13",
+    city:"Kauniainen", venue:"GrIFK Areena (indoor)",
+    levels:"Kilpa, Haaste, Harraste (12 teams each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"18 min", games:"18 (3 per day)", fee:"€349",
+    dl:[{text:"Closed 15.9 · all levels full"}], nups:{s:"yes",t:"Kilpa (NuPS), Haaste (NuPS/musta), Harraste (NuPS/valkoinen)"}, fck:{s:"yes",t:"Kilpa, Haaste ×2, Harraste"},
+    url:"https://grifktalviliiga.torneopal.fi/", st:"ok", isNew:true },
+
+  { id:"hjk-7v7-syysturnaus", name:"HJK 7v7 Syysturnaus", io:"out", org:"HJK", start:"2026-11-14", city:"Helsinki", venue:"Pajamäki (artificial turf)",
+    levels:"Taso 1 Kilpa (invitation), Haaste, Harraste", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"—", fee:"€120",
+    dl:[{date:"2026-10-18",label:"registration closes (limited spots)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.hjk-j.fi/palvelut/7v7-turnaukset/", st:"ok", isNew:true },
+
+  { id:"njs-minarit", name:"NJS Minarit 2026–27", io:"in", org:"Nurmijärven JS · single days", start:"2026-11-14", end:"2027-04-11", dateText:"14.11 · 5.12 · 9.1 · 30.1 · 6.3 · 10.4", dateNote:"Kilpa/Harraste days · Haaste: 14.11, 13.12, 17.1, 7.2, 14.3, 11.4 · enter each day separately",
+    city:"Klaukkala", venue:"Nurmijärven Sähkö Areena (indoor)",
+    levels:"Kilpa, Haaste, Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"3 per day", fee:"€100 per day",
+    dl:[{text:"Open on every day · free cancellation up to 30 days before"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://njsminarit.torneopal.fi/", st:"ok", isNew:true },
+  { id:"pep-futsal-liiga", io:"in", name:"PEP Futsal liiga 2026–27", org:"Pohjois-Espoon Ponsi · futsal series", start:"2026-10-24", end:"2027-03-20", dateText:"24.10 · 28.11 · 16.1 · 6.2 · 13.3 · 20.3", dateNote:"Saturdays, 4 days per team",
+    city:"Espoo", venue:"Kalajärven koulu, Hiirisuontie 1 (school hall)",
+    levels:"Taso 1, Taso 2 (4 teams each)", fmt:[], fmtText:"<b>4v4</b> futsal (3 + GK)", match:"1×18 min", games:"12 (3 per day)", fee:"—",
+    dl:[{text:"Closed · season under way"}], nups:{s:"yes",t:"Taso 1 (NuPS/Musta), Taso 2 (NuPS/Punainen)"}, fck:{s:"no",t:"only 2018 teams"},
+    url:"https://www.pep.fi/tapahtumat/pep-futsal-liiga/", st:"ok", isNew:true },
+  { id:"united-kutsuturnaus", io:"in", name:"Käpylä United Kutsuturnaus 2027", org:"Käpylä United · invitation only", start:"2027-01-30", end:"2027-01-31", dateNote:"Group games Sat, placement games Sun (page also mentions 31.1–1.2, check)",
+    city:"Helsinki", venue:"Myllypuron jalkapallohalli (indoor)",
+    levels:"One 2017 series (12 teams)", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"group + placement", fee:"—",
+    dl:[{text:"Invitation only · 6/12 places for 2017 filled · ask Käpylä United", warn:true}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    url:"https://www.kapylaunited.fi/u10u11turnaus/", st:"ok", isNew:true },
+
+  { id:"united-kevatturnaus", io:"out", name:"Käpylä United Kevätturnaus", org:"Käpylä United & Talviliiga", start:"2027-05-15", dateText:"May 2027 (≈ 15–16.5)", dateNote:"3rd weekend of May every year · each team plays one day",
+    city:"Helsinki", venue:"Turf fields: Käpylä, Myllypuro, Lassila, Tali, Oulunkylä, Tapuli",
+    levels:"Eliitti, Kilpa, Haaste, Harraste (2026)", fmt:["7v7","8v8"], fmtText:"<b>8v8</b> · Eliitti <b>7v7</b> (2026)", match:"—", games:"4–5 in one day", fee:"2026: €149 · 2 teams €279 · 3 €389 · Eliitti €179",
+    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"prev",t:"2026: P2017 Eliitti"},
+    url:"https://kevatturnaus.fi/", st:"est", isNew:true },
+
+  { id:"united-syysturnaus", io:"out", name:"Käpylä United Syysturnaus", org:"Käpylä United & Talviliiga", start:"2027-09-04", dateText:"Early Sept 2027", dateNote:"2026 was 5–6.9 and 12–13.9 · each team plays one day",
+    city:"Helsinki", venue:"Turf fields: Käpylä, Oulunkylä, Tali, Lassila, Myllypuro",
+    levels:"Born 2011–2018, several levels", fmt:[], fmtText:"—", match:"—", games:"4–5 in one day", fee:"—",
+    dl:[{text:"Not published"}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    url:"https://syysturnaus.fi/", st:"est", isNew:true },
+  { id:"japs-talviturnaukset", io:"in", name:"JäPS Talviturnaukset", org:"JäPS · single days", start:"2026-11-28", dateText:"28.11.2026 · 6.2.2027", dateNote:"6.2 has Haaste and Harraste only",
+    city:"Järvenpää", venue:"Logisnext Areena (indoor)",
+    levels:"Kilpa, Haaste, Harraste (max 8 each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"—", games:"3", fee:"€120 · 2 days €220 · 3 €320",
+    dl:[{text:"Open · 28.11: Kilpa 2/8 · 6.2: Haaste 5/8"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.japs.fi/japs-talviturnaukset/", st:"ok", isNew:true },
+
+  { id:"pk-35-super-liiga", io:"in", name:"PK-35 Super-Liiga", org:"PK-35 · winter series", start:"2026-10-24", dateText:"Late Oct 2026 – Apr 2027?", dateNote:"2025–26 ran 25.10–11.4 · 2026–27 not published",
+    city:"Helsinki", venue:"Pihlis halli, Pihlajamäki (indoor)",
+    levels:"Kilpa, Haaste, Harraste (2025–26)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×18 min", games:"9 (3 events × 3)", fee:"€240 (2025–26)",
+    dl:[{text:"Not published · 2017s may be too old this season"}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    url:"https://juniorit.pk-35.fi/toiminta/super-liiga/", st:"est", isNew:true },
+
+  { id:"gnistan-wapputurnaus", io:"out", name:"Gnistan Wapputurnaus", org:"IF Gnistan (P2016–17 teams)", start:"2027-05-08", dateText:"May 2027 (≈ 8–9.5)", dateNote:"2nd weekend of May every year · 2026 sold out",
+    city:"Helsinki", venue:"Oulunkylä: Markku.fi & Pikkupekka Areena",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["5v5","8v8"], fmtText:"2026 P2017 <b>5v5</b>; P10 was <b>8v8</b>", match:"1×25 min", games:"4", fee:"€150 (2026)",
+    dl:[{text:"Not published · 2026 free cancellation until 1.4"}], nups:{s:"no",t:"2026: no"}, fck:{s:"prev",t:"2026: Kilpa, Haaste, Harraste"},
+    url:"https://gnistan.fi/wapputurnaus", st:"est", isNew:true },
+
+  { id:"helsingin-liiga", io:"out", name:"HJK Helsingin Liiga 2027", org:"HJK · new league", start:"2027-04-01", end:"2027-10-15", dateNote:"Schedules out 1.3.2027",
+    city:"Helsinki", venue:"—",
+    levels:"Not published yet", fmt:["7v7"], fmtText:"<b>7v7</b> for 2017", match:"—", games:"—", fee:"—",
+    dl:[{date:"2026-11-01",label:"registration opens"},{date:"2027-01-15",label:"registration closes"},{text:"Aimed at Helsinki clubs"}], nups:{s:"notopen"}, fck:{s:"notopen"},
+    url:"https://www.hjk-j.fi/palvelut/turnaukset-ja-sarjat/helsingin-liiga/", st:"ok", isNew:true },
+
+  { id:"uudenmaan-junioriliiga", io:"out", name:"Uudenmaan junioriliiga", org:"JäPS, KP-75, TuPS · weekday league", start:"2027-04-15", dateText:"Spring–autumn 2027", dateNote:"Thursdays · 2026 final tournament 26–27.9",
+    city:"Järvenpää / Kerava / Tuusula", venue:"—",
+    levels:"Levels 1–3 (2026 P10)", fmt:["5v5","8v8"], fmtText:"L1–2 <b>8v8</b> · L3 <b>5v5</b> (2026)", match:"2×25 min", games:"—", fee:"€210 season · €110 final only (2026)",
+    dl:[{text:"2026 closed 25.1 · Central Uusimaa clubs only"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.uudenmaanjunioriliiga.fi/", st:"est", isNew:true },
+
+  { id:"hjk-challenger-cup", io:"out", name:"HJK Challenger Cup & HJK Cup", org:"HJK · academy level", start:"2027-08-21", dateText:"Late Aug – early Sept 2027", dateNote:"2026: Challenger 22.8, HJK Cup 4–6.9",
+    city:"Helsinki", venue:"Töölö, Bolt Arena",
+    levels:"Challenger open, winner invited to HJK Cup", fmt:["7v7","8v8"], fmtText:"<b>8v8</b> / <b>7v7</b> (2026)", match:"—", games:"—", fee:"—",
+    dl:[{text:"Not published · elite level"}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    url:"https://hjkchallengercup.torneopal.fi/", st:"est", isNew:true },
+
+  { id:"pps-jumbo-cup", io:"out", name:"PPS Jumbo Cup", org:"Pakkalan Palloseura", start:"2027-09-25", dateText:"Late Sept 2027", dateNote:"2026: P10 day 26.9 (8v8), P9 27.9",
+    city:"Vantaa", venue:"Kartanonkoski turf fields",
+    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["8v8"], fmtText:"P10 <b>8v8</b> (2026)", match:"25 min", games:"—", fee:"€130 for 8v8 (2026)",
+    dl:[{text:"2026: closed 2 weeks before"}], nups:{s:"prev",t:"2026: Haaste (punainen) + Harraste (valkoinen)"}, fck:{s:"prev",t:"2026: Kilpa (2nd), Haaste, Harraste"},
+    url:"https://jumbocup.torneopal.fi/", st:"est", isNew:true },
+  { id:"talvi-vantaa-cup", io:"in", name:"Talvi Vantaa Cup 2027", org:"VJS", start:"2027-02-06", dateText:"6.2.2027 · 5–7.3.2027", dateNote:"U10 5v5 on Sat 6.2 · 7v7 Kilpa in March",
+    city:"Vantaa", venue:"Aktia Areena & Myyrmäki-halli (indoor)",
+    levels:"Taso 2–3 (5v5) · Kilpa invitation (7v7)", fmt:["5v5","7v7"], fmtText:"Taso 2–3 <b>5v5</b> · Kilpa <b>7v7</b>", match:"5v5 1×25 · 7v7 2×18 min", games:"4 (5v5) · 5 (7v7)", fee:"5v5 €149 early · €170 · 7v7 €380",
+    dl:[{date:"2026-10-31",label:"early bird ends (5v5)"},{text:"Taso 2: 2/16 · taso 3: 1/16 registered"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://talvivantaacup.torneopal.fi/", st:"ok", isNew:true },
+];
+
+const PERIODS = [
+  { key:"autumn", label:"Autumn 2026", test:d => d < new Date("2027-01-01") },
+  { key:"winter", label:"Winter 2027", test:d => d >= new Date("2027-01-01") && d < new Date("2027-04-01") },
+  { key:"spring", label:"Spring 2027", test:d => d >= new Date("2027-04-01") && d < new Date("2027-06-01") },
+  { key:"summer", label:"Summer 2027", test:d => d >= new Date("2027-06-01") },
+];
+const FORMATS = ["5v5","7v7","8v8"];
+const state = { period:"all", formats:new Set(), io:"all", nups:false, confirmed:false };
+
+const WD = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const d = s => new Date(s + "T00:00:00");
+const fi = (x, yr=true) => `${x.getDate()}.${x.getMonth()+1}.${yr ? x.getFullYear() : ""}`;
+const days = x => Math.round((x - TODAY) / 864e5);
+const wb = h => h.replace(/([A-Za-zäöÄÖ0-9)])\/([A-Za-zäöÄÖ(])/g, "$1/<wbr>$2");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function dateCell(t) {
+  let main;
+  if (t.dateText) main = esc(t.dateText);
+  else {
+    const a = d(t.start);
+    if (!t.end) main = `${WD[a.getDay()]} ${fi(a)}`;
+    else { const b = d(t.end); main = `${fi(a, a.getFullYear() !== b.getFullYear())}–${fi(b)}`; }
+  }
+  return `<div class="date">${main}${t.dateNote ? `<small>${esc(t.dateNote)}</small>` : ""}</div>`;
+}
+function dlCell(t) {
+  return t.dl.map(x => {
+    if (!x.date) return `<div class="${x.warn ? "dl-soon" : "small"}">${esc(x.text)}</div>`;
+    const dd = d(x.date), n = days(dd);
+    let cls = "", tail = "";
+    if (n < 0) cls = "dl-past";
+    else if (n <= 45) { cls = "dl-soon"; tail = n === 0 ? " · today" : ` · in ${n} d`; }
+    return `<div class="${cls}"><span class="num">${fi(dd)}</span> <span class="small">${esc(x.label)}</span>${tail ? `<span>${tail}</span>` : ""}</div>`;
+  }).join("");
+}
+function ioCell(t) {
+  const label = { in:"Indoor", out:"Outdoor", both:"Both" }[t.io] || "—";
+  return `<span class="io io-${t.io || "na"}">${label}</span>${t.ioNote ? `<div class="small">${esc(t.ioNote)}</div>` : ""}`;
+}
+function entryCell(e) {
+  const label = { yes:"Entered", prev:"Not yet", no:"No", notopen:"Not open yet", unknown:"Unknown" }[e.s];
+  const body = e.s === "prev" ? esc(e.t) : `${label}${e.t ? `<span class="small">${esc(e.t)}</span>` : ""}`;
+  return `<span class="entry e-${e.s}">${body}</span>`;
+}
+function statusBadge(t) {
+  const isPast = d(t.end || t.start) < TODAY;
+  if (isPast) return `<span class="badge b-est">Played</span>`;
+  if (t.dl.some(x => /^(Closed|Full)/.test(x.text || ""))) return `<span class="badge b-bad">Closed / full</span>`;
+  const nw = t.isNew ? ` <span class="badge b-new">New</span>` : "";
+  return (t.st === "ok" ? `<span class="badge b-ok">Confirmed</span>` : `<span class="badge b-est">Based on 2026</span>`) + nw;
+}
+const periodOf = t => PERIODS.find(p => p.test(d(t.start)));
+
+function filtered() {
+  return T.filter(t => {
+    if (state.period !== "all" && periodOf(t).key !== state.period) return false;
+    if (state.formats.size && !t.fmt.some(f => state.formats.has(f))) return false;
+    if (state.io !== "all" && t.io !== state.io && t.io !== "both") return false;
+    if (state.nups && !["yes","prev"].includes(t.nups.s)) return false;
+    if (state.confirmed && t.st !== "ok") return false;
+    return true;
+  }).sort((a,b) => a.start.localeCompare(b.start));
+}
+
+function render() {
+  const list = filtered();
+  const rows = [];
+  let last = null;
+  for (const t of list) {
+    const p = periodOf(t);
+    if (p.key !== last) { rows.push(`<tr class="period"><td colspan="11">${p.label}</td></tr>`); last = p.key; }
+    const past = d(t.end || t.start) < TODAY;
+    rows.push(`<tr class="${past ? "past" : ""}">
+      <td class="c-date">${dateCell(t)}</td>
+      <td class="c-name"><a class="name" href="${t.url}" target="_blank" rel="noopener">${esc(t.name)} ↗</a><div class="org">${esc(t.org)}</div><div class="where"><b>${esc(t.city)}</b> · ${esc(t.venue)}</div>${t.url2 ? `<a class="small" href="${t.url2}" target="_blank" rel="noopener">Fees ↗</a><br>` : ""}${statusBadge(t)}${planBtn(t)}</td>
+      <td data-label="Indoor / outdoor">${ioCell(t)}</td>
+      <td data-label="Levels">${wb(esc(t.levels))}</td>
+      <td data-label="Format" class="fmt">${wb(t.fmtText)}</td>
+      <td data-label="Match length">${esc(t.match)}</td>
+      <td data-label="Guaranteed games" class="num">${esc(t.games)}</td>
+      <td data-label="Fee / team"><div>${wb(esc(t.fee))}</div>${t.feeNote ? `<div class="small">${esc(t.feeNote)}</div>` : ""}</td>
+      <td data-label="Registration deadline">${wb(dlCell(t))}</td>
+      <td data-label="NuPS entered">${wb(entryCell(t.nups))}</td>
+      <td data-label="FCK entered">${wb(entryCell(t.fck))}</td>
+    </tr>`);
+  }
+  document.getElementById("rows").innerHTML = rows.length ? rows.join("") : `<tr><td colspan="11" class="empty">No tournaments match these filters.</td></tr>`;
+  document.getElementById("count").textContent = `${list.length} of ${T.length} tournaments`;
+}
+
+function summary() {
+  const ent = T.filter(t => t.nups.s === "yes").sort((a,b) => a.start.localeCompare(b.start));
+  document.getElementById("entered").innerHTML = ent.map(t =>
+    `<li><span class="d">${t.dateText ? fi(d(t.start), false) + "→" : fi(d(t.start), false)}</span><span><b>${esc(t.name)}</b> <span class="n">· ${esc(t.nups.t)}</span></span></li>`).join("");
+  const dls = [];
+  for (const t of T) for (const x of t.dl) if (x.date && d(x.date) >= TODAY) dls.push({ dd:d(x.date), t, x });
+  dls.sort((a,b) => a.dd - b.dd);
+  document.getElementById("deadlines").innerHTML = dls.slice(0, 6).map(({dd,t,x}) =>
+    `<li><span class="d">${fi(dd)}</span><span><b>${esc(t.name)}</b> <span class="n">· ${esc(x.label)}</span></span></li>`).join("");
+}
+
+function chip(group, label, pressed, onClick) {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = label;
+  b.setAttribute("aria-pressed", pressed); b.addEventListener("click", () => onClick(b));
+  document.getElementById(group).appendChild(b);
+  return b;
+}
+function setupFilters() {
+  const pBtns = [];
+  const pick = (key, b) => { state.period = key; pBtns.forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+  pBtns.push(chip("f-period", "All", true, b => pick("all", b)));
+  for (const p of PERIODS) pBtns.push(chip("f-period", p.label.replace(/ 20\d\d/, ""), false, b => pick(p.key, b)));
+  for (const f of FORMATS) chip("f-format", f, false, b => {
+    state.formats.has(f) ? state.formats.delete(f) : state.formats.add(f);
+    b.setAttribute("aria-pressed", state.formats.has(f)); render();
+  });
+  const ioBtns = [];
+  for (const [key, label] of [["in","Indoor"],["out","Outdoor"]]) ioBtns.push(chip("f-io", label, false, b => {
+    state.io = state.io === key ? "all" : key;
+    ioBtns.forEach(x => x.setAttribute("aria-pressed", x === b && state.io === key)); render();
+  }));
+  document.getElementById("f-nups").addEventListener("change", e => { state.nups = e.target.checked; render(); });
+  document.getElementById("f-confirmed").addEventListener("change", e => { state.confirmed = e.target.checked; render(); });
+}
+
+// ---------- Season plan (maintained in this file; ask Claude to update) ----------
+const PLAN_TARGET = 5;
+const PLAN_UPDATED = "10.10.2026";
+// status: "base" = decided, "maybe" = shortlist
+const PLAN = {
+ "helsinki-cup": {
+  "status": "base",
+  "note": "Decided: all three teams play. Early bird €395 per team (Trophy 7v7 €430) if registered by 31.12.2026; registration closes 30.4.2027."
+ },
+ "hyvinkaan-eloturnaus": {
+  "status": "maybe",
+  "note": "Moved back to the shortlist. All three levels (Taso 1 7v7, Taso 2–3 5v5), day trips. Early bird €229 / €209 until 31.12.2026 or until 4 outside teams register. Free cancellation until 31.3.2027."
+ },
+ "kevatturnaus": {
+  "status": "base",
+  "note": "Decided: all three teams play. €555 for 3 teams (5v5). Registration opens 1.11.2026, closes 21.3.2027 or when full."
+ },
+ "pingviini-cup": {
+  "status": "base",
+  "note": "Decided: all three teams play. €555 for 3 teams (5v5). Registration 1.2–31.5.2027."
+ },
+ "porvoo-cup": {
+  "status": "maybe",
+  "note": "Moved back to the shortlist. All three levels, 5v5, Saturday 12.6.2027. €120 per team if registered by 31.12.2026, then €180. Free cancellation until about 3.4.2027."
+ },
+ "kesa-aura-cup": {
+  "status": "maybe",
+  "note": "Moved back to the shortlist. Turku 2–4.7, overnight. Kilpa/Kutsu 7v7 and Haaste 5v5, no Harraste series. €380 per team; partner hotels Sokos Kupittaa, Scandic Julia and Holiday Club Caribia."
+ },
+ "ppj-tuplakupla-cup": {
+  "status": "maybe",
+  "note": "On the shortlist for its next edition. The 3.10.2026 edition is played: NuPS/musta played Haaste and FCK won Eliitti. €109 per team (Eliitti 7v7 €129), at least 4 games, indoor at Intersport Areena. PPJ hasn't announced the next date yet."
+ },
+ "kinkunsulatusturnaus": {
+  "status": "maybe",
+  "note": "Tuusula, Tekova Areena (indoor), 6.1. NuPS played Kilpa and Haaste here in 2026. The 2027 edition isn't published yet and may not have a P10 series; TuPS is merging into a new club."
+ },
+ "hjk-talviturnaus": {
+  "status": "maybe",
+  "note": "Töölö bubble, Saturday 30.1. Harraste only, so it suits one team, not all three. €105 if registered by 15.11.2026, then €125."
+ },
+ "hjk-7v7-kevatturnaus": {
+  "status": "maybe",
+  "note": "Pajamäki, 7v7. The 2026 edition was 28–29.3; the 2027 date isn't announced."
+ },
+ "helsinki-kick-off-cup": {
+  "status": "maybe",
+  "note": "Intersport Areena, Jätkäsaari. The 2026 edition (18–19.4) was a 2017-only event with 4 levels and 6 games; FCK finished 2nd in Elite. No 2027 date yet."
+ },
+ "pk-35-helsinki-open": {
+  "status": "maybe",
+  "note": "Pihlajamäki, Sunday 25.4. All three levels, 5v5, 3 games, €99 per team. NuPS played Kilpa and Haaste here in 2026. Registration opens later."
+ },
+ "fc-viikingit-kevatfestivaalit": {
+  "status": "base",
+  "note": "Decided: all three teams play. Expected 8–9.5.2027 (2nd weekend of May; date not published yet). P10 played 8v8 in 2026: €125 per team early bird (until mid-January), then €150. Watch for registration this winter. Same weekend as Gnistan Wapputurnaus."
+ },
+ "united-kutsuturnaus": {
+  "status": "maybe",
+  "note": "Myllypuro indoor hall, 30–31.1.2027, 7v7. Invitation only, 6 of 12 places for 2017 filled; ask Timo Maakannas (timo@kapylaunited.fi). One team only, and 31.1 is a GrIFK Talviliiga and Espoon Talvisarja day."
+ },
+ "united-kevatturnaus": {
+  "status": "maybe",
+  "note": "Käpylä United's own spring tournament (not the KäPa Kevätturnaus). 2026: 16–17.5, one day, 4–5 games, 4 levels; FCK played P2017 Eliitti. Club price was €389 for 3 teams. 2027 date not published yet."
+ },
+ "japs-talviturnaukset": {
+  "status": "maybe",
+  "note": "Järvenpää indoor hall, 5v5, 3 games, €120 per team (3 teams €320). 6.2.2027 has Haaste and Harraste; 28.11.2026 also has Kilpa. Places open."
+ },
+ "gnistan-wapputurnaus": {
+  "status": "maybe",
+  "note": "Oulunkylä, early May. In 2026 all three 2017 levels for €150 per team, 4 games, and FCK entered three teams. It filled up in 2026, so register early once the 2027 date is out."
+ },
+ "talvi-vantaa-cup": {
+  "status": "maybe",
+  "note": "Myyrmäki indoor halls. Sat 6.2.2027: 5v5 taso 2 (≈ Palloliitto etelä taso 3) and taso 3 (etelä 4–5), 4 games, €149 per team until 31.10.2026, then €170. Kilpa team: invitation 7v7 series 5–7.3.2027, 5 games, €380. 6.2 is also a PEP futsal day for NuPS/musta and NuPS/punainen."
+ }
+};
+const byId = Object.fromEntries(T.map(t => [t.id, t]));
+const hasThree = t => /kilpa|elite|eliitti|taso 1/i.test(t.levels) && /haaste|yleinen|avoin|taso 2/i.test(t.levels) && /harraste|taso 3|taso 2–3/i.test(t.levels);
+
+// Edition history for planned events (checked 11.10.2026).
+const HISTORY = {
+  "ppj-tuplakupla-cup": "First held 3.10.2026 (44 teams); no earlier editions",
+  "kinkunsulatusturnaus": "First held 6.1.2026 (46 teams, P7–P9 only)",
+  "hjk-talviturnaus": "2nd edition (1st: 25.1.2026, 64 teams)",
+  "hjk-7v7-kevatturnaus": "First held 28–29.3.2026 (P2015–16, 37 teams)",
+  "helsinki-kick-off-cup": "First held 18–19.4.2026 (36 teams, 2017 only)",
+  "pk-35-helsinki-open": "32nd edition; every 3rd–4th weekend of April",
+  "fc-viikingit-kevatfestivaalit": "Every 2nd weekend of May since at least 2023 (2025: 241 teams)",
+  "united-kutsuturnaus": "4th edition (2025, 2026 at the same weekend)",
+  "united-kevatturnaus": "Every 3rd weekend of May since 2021 (2024: 400+ teams); registration opens mid-Nov",
+  "japs-talviturnaukset": "Running since 2024–25; P10 series new this season",
+  "gnistan-wapputurnaus": "Every 2nd weekend of May since 2022; P10 always 8v8; page opens Oct–Nov",
+  "talvi-vantaa-cup": "Recurring early Feb + early March (2025: 210 teams)",
+  "porvoo-cup": "Recurring first half of June since 2024 (2025: 120 teams)",
+  "hyvinkaan-eloturnaus": "Recurring turn of July/Aug since 2020 (2026: 218 teams)",
+  "kesa-aura-cup": "23rd edition in 2026; normally last weekend of June",
+};
+function planBtn(t) {
+  const p = PLAN[t.id];
+  if (!p) return "";
+  return ` <span class="badge ${p.status === "base" ? "b-ok" : "b-est"}">${p.status === "base" ? "✓ Base" : "Shortlist"}</span>`;
+}
+function whenText(t) {
+  if (t.dateText) return t.dateText;
+  const a = d(t.start);
+  if (!t.end) return `${WD[a.getDay()]} ${fi(a)}`;
+  const b = d(t.end); return `${fi(a, a.getFullYear() !== b.getFullYear())}–${fi(b)}`;
+}
+function card(t, p) {
+  const base = p.status === "base";
+  const three = /not published/i.test(t.levels) ? `<span class="three small">Levels not published yet</span>`
+    : hasThree(t) ? `<span class="three ok">All 3 levels offered</span>`
+    : `<span class="three no">Not all 3 levels offered</span>`;
+  return `<article class="pcard ${base ? "base" : ""}">
+    <div class="top"><span class="when">${esc(whenText(t))}</span>${three}</div>
+    <div><a class="name" href="${t.url}" target="_blank" rel="noopener">${esc(t.name)} ↗</a><div class="where"><b>${esc(t.city)}</b> · ${esc(t.venue)}</div></div>
+    <dl>
+      <dt>Levels</dt><dd>${wb(esc(t.levels))}</dd>
+      <dt>Format</dt><dd>${wb(t.fmtText)} · ${ioCell(t)}</dd>
+      <dt>Games</dt><dd>${esc(t.games)} · ${esc(t.match)}</dd>
+      <dt>Fee / team</dt><dd>${wb(esc(t.fee))}</dd>
+      <dt>Deadline</dt><dd>${wb(dlCell(t))}</dd>
+      <dt>NuPS now</dt><dd>${wb(entryCell(t.nups))}</dd>
+      ${HISTORY[t.id] ? `<dt>History</dt><dd>${esc(HISTORY[t.id])}</dd>` : ""}
+    </dl>
+    ${p.note ? `<p class="pnote">${esc(p.note)}</p>` : ""}
+  </article>`;
+}
+// Entry fees per team: [format, early-bird fee, standard fee]. Order: Kilpa team, Haaste team, Harraste team.
+const ROSTER = { "5v5": 7, "7v7": 10, "8v8": 11, "4v4": 7 };
+const COSTS = {
+  "kevatturnaus": { teams: [["5v5",185,185],["5v5",185,185],["5v5",185,185]], note: "club price €555 for 3 teams" },
+  "porvoo-cup": { teams: [["5v5",120,180],["5v5",120,180],["5v5",120,180]], note: "early bird until 31.12.2026" },
+  "kesa-aura-cup": { teams: [["7v7",380,380],["5v5",380,380],["5v5",380,380]], note: "Kilpa 7v7; the third team also plays Haaste 5v5 (no Harraste series)" },
+  "helsinki-cup": { teams: [["5v5",395,415],["5v5",395,415],["5v5",395,415]], note: "early bird until 31.12.2026" },
+  "hyvinkaan-eloturnaus": { teams: [["7v7",229,269],["5v5",209,239],["5v5",209,239]], note: "Taso 1 7v7; early bird until 31.12.2026 or 4 outside teams" },
+  "fc-viikingit-kevatfestivaalit": { teams: [["8v8",125,150],["8v8",125,150],["8v8",125,150]], note: "2026 prices · early bird until mid-January · date ≈ 8–9.5" },
+  "pingviini-cup": { teams: [["5v5",185,185],["5v5",185,185],["5v5",185,185]], note: "club price €555 for 3 teams" },
+};
+// Series fees counted in the season total (not tournaments in the table).
+const EXTRA_COSTS = [
+  { name: "GrIFK McDonald's Talviliiga 2026–27", note: "already entered · 6 Sundays, 18 games · NuPS, NuPS/musta, NuPS/valkoinen", teams: [["5v5",349,349],["5v5",349,349],["5v5",349,349]] },
+  { name: "Espoon Talvisarja 2026–27", note: "already entered · NuPS/musta only · 6 Sundays, 18 games", teams: [null,["5v5",445,445],null] },
+  { name: "PEP Futsal liiga 2026–27", note: "already entered · €250 for 2 teams · NuPS/musta (taso 1) under Haaste, NuPS/punainen (taso 2) under Harraste", teams: [null,["4v4",125,125],["4v4",125,125]] },
+  { name: "Länsi-Uudenmaan liiga 2027", note: "not confirmed yet · 6 events, 18+ games · free cancellation until 31.1.2027", teams: [["7v7",90,90],["5v5",90,90],["5v5",90,90]] },
+];
+const eur = (n, dec = 0) => "€" + n.toLocaleString("fi-FI", { minimumFractionDigits: dec, maximumFractionDigits: dec }).replace(/\u00a0/g, " ");
+function renderCosts(base) {
+  const rows = base.filter(x => COSTS[x.t.id]).map(({ t }) => ({ name: t.name.replace(/ 20\d\d$/, ""), ...COSTS[t.id] }));
+  const tot = [0,0,0], totStd = [0,0,0], pp = [0,0,0], ppStd = [0,0,0];
+  const body = rows.map(c => {
+    if (c.span) return `<tr><td><b>${esc(c.name)}</b><span class="pp small">${esc(c.note)}</span></td><td colspan="4" class="small" style="text-align:center">${esc(c.span)}</td></tr>`;
+    const cells = c.teams.map((tm, i) => {
+      if (!tm) return `<td class="n small">—</td>`;
+      const [fmt, early, std] = tm;
+      tot[i] += early; totStd[i] += std; pp[i] += early / ROSTER[fmt]; ppStd[i] += std / ROSTER[fmt];
+      return `<td class="n">${eur(early)}${std !== early ? ` <span class="small">(${eur(std)})</span>` : ""}<span class="pp">${fmt} · ${eur(early / ROSTER[fmt], 2)}/player</span></td>`;
+    }).join("");
+    const sum = c.teams.reduce((a, x) => a + (x ? x[1] : 0), 0);
+    return `<tr><td><b>${esc(c.name)}</b><span class="pp small">${esc(c.note)}</span></td>${cells}<td class="n"><b>${eur(sum)}</b></td></tr>`;
+  }).join("");
+  const T3 = tot.reduce((a, b) => a + b, 0), T3s = totStd.reduce((a, b) => a + b, 0);
+  document.getElementById("costs").innerHTML = `<thead><tr><th>Tournament</th><th class="n">Kilpa team</th><th class="n">Haaste team</th><th class="n">Harraste team</th><th class="n">All 3 teams</th></tr></thead>
+    <tbody>${body}</tbody>
+    <tfoot><tr><td>Season, early-bird prices</td>${tot.map((v, i) => `<td class="n">${eur(v)}<span class="pp">${eur(pp[i], 2)}/player</span></td>`).join("")}<td class="n">${eur(T3)}</td></tr>
+    <tr class="std"><td>Season, standard prices</td>${totStd.map((v, i) => `<td class="n">${eur(v)}<span class="pp">${eur(ppStd[i], 2)}/player</span></td>`).join("")}<td class="n">${eur(T3s)}</td></tr></tfoot>`;
+  document.getElementById("costsum").innerHTML = `
+    <div class="k"><b>${eur(T3)}</b><span>All base tournaments, early bird (${eur(T3s)} at standard prices)</span></div>
+    <div class="k"><b>${eur(pp[0], 0)}</b><span>Per player, Kilpa team (5v5 = 7, 7v7 = 10, 8v8 = 11 players)</span></div>
+    <div class="k"><b>${eur(pp[1], 0)}</b><span>Per player, Haaste team</span></div>
+    <div class="k"><b>${eur(pp[2], 0)}</b><span>Per player, Harraste team</span></div>`;
+  document.getElementById("costnote").textContent = "Entry fees only. Travel, meals and tournament passes are not included. Series and leagues (GrIFK Talviliiga, Espoon Talvisarja, PEP Futsal liiga, Länsi-Uudenmaan liiga, Palloliitto) aren't included. Per-player shares assume 7 players in a 5v5 team, 10 in a 7v7 team and 11 in an 8v8 team. Kevätturnaus and Pingviini Cup assume all three teams in 5v5; an Elite 7v7 place costs €395.";
+}
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const OVERNIGHT = new Set(["kesa-aura-cup","heinacup","kokkola-cup","kuopio-cup"]);
+// Events NuPS is already entered in (shown in the calendar next to the base tournaments).
+const CAL_START = new Date(2026, 9, 1), CAL_END = new Date(2027, 8, 30);
+const ENTERED_CAL = [
+  { id: "grifk-mcdonalds-talviliiga", label: "GrIFK Talviliiga", who: "all 3 teams", teams: ["nups","musta","valkoinen"], days: ["2026-10-25","2026-11-15","2027-01-10","2027-01-31","2027-03-07","2027-04-04"] },
+  { id: "espoon-talvisarja", label: "Espoon Talvisarja", who: "NuPS/musta", teams: ["musta"], days: ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"] },
+  { id: "saastopankki-turnaus", label: "Säästöpankki-turnaus (HJS)", who: "NuPS (Kilpa)", teams: ["nups"], days: ["2026-11-21"] },
+  { id: "iif-minicup", label: "IIF minicup, Inkoo", who: "NuPS P17 / valkoinen", teams: ["valkoinen"], days: ["2026-11-21"] },
+  { id: "pep-futsal-liiga", label: "PEP Futsal liiga", who: "NuPS/musta, taso 1", teams: ["musta"], days: ["2026-10-24","2026-11-28","2027-02-06","2027-03-20"] },
+  { id: "pep-futsal-liiga", label: "PEP Futsal liiga", who: "NuPS/punainen, taso 2", teams: ["punainen"], days: ["2026-11-28","2027-01-16","2027-02-06","2027-03-13"] },
+];
+function renderCalendar(base) {
+  const evs = base.map(x => x.t).filter(t => !t.dateText || t.end)
+    .map(t => ({ kind: "base", name: t.name.replace(/ 20\d\d$/, ""), note: [OVERNIGHT.has(t.id) ? "overnight" : "", /≈/.test(t.dateText || "") ? "date not confirmed" : ""].filter(Boolean).join(" · "), teams: ["nups","musta","valkoinen","punainen"], ev: t.id, a: d(t.start), b: d(t.end || t.start) }));
+  for (const e of ENTERED_CAL) for (const day of e.days)
+    evs.push({ kind: "en", name: e.label, note: e.who, teams: e.teams, ev: e.id, a: d(day), b: d(day) });
+  const el = document.getElementById("cal");
+  if (!evs.length) { el.innerHTML = `<div class="empty-plan">Nothing on the calendar yet.</div>`; return; }
+  // Season calendar: October 2026 to September 2027 (extends if an event falls outside).
+  const first = new Date(Math.min(+CAL_START, ...evs.map(e => +e.a))), last = new Date(Math.max(+CAL_END, ...evs.map(e => +e.b)));
+  const out = [];
+  for (let m = new Date(first.getFullYear(), first.getMonth(), 1); m <= last; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) {
+    const y = m.getFullYear(), mo = m.getMonth(), dim = new Date(y, mo + 1, 0).getDate();
+    const lead = (m.getDay() + 6) % 7; // Monday first
+    const cells = ["Mo","Tu","We","Th","Fr","Sa","Su"].map(w => `<span class="wd">${w}</span>`);
+    for (let i = 0; i < lead; i++) cells.push(`<span></span>`);
+    for (let day = 1; day <= dim; day++) {
+      const dt = new Date(y, mo, day);
+      const hits = evs.filter(e => dt >= e.a && dt <= e.b);
+      const cls = ["day"];
+      if (dt.getDay() === 0 || dt.getDay() === 6) cls.push("we");
+      if (hits.some(h => h.kind === "base")) cls.push("ev");
+      else if (hits.length) cls.push("en");
+      if (hits.some((h, i) => hits.some((o, j) => j > i && o.teams.some(x => h.teams.includes(x))))) cls.push("clash");
+      if (+dt === +TODAY) cls.push("today");
+      cells.push(`<span class="${cls.join(" ")}"${hits.length ? ` title="${esc(hits.map(h => h.name).join(" + "))}"` : ""}>${day}</span>`);
+    }
+    const mStart = new Date(y, mo, 1), mEnd = new Date(y, mo, dim);
+    const inMonth = evs.filter(e => e.a <= mEnd && e.b >= mStart).sort((p, q) => p.a - q.a);
+    const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
+      const dd = +e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`;
+      const others = evs.filter(o => o !== e && o.a <= e.b && o.b >= e.a);
+      const clash = others.some(o => o.teams.some(x => e.teams.includes(x)));
+      const flag = clash ? ` <span class="cl">· clash</span>` : others.some(o => o.ev !== e.ev) ? ` <span class="ov">· same day, other team</span>` : "";
+      return `<li><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span>${esc(e.name)}${e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : ""}${flag}</span></li>`;
+    }).join("")}</ul>` : `<ul class="mevents"><li class="ov">Nothing planned</li></ul>`;
+    out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
+  }
+  el.innerHTML = out.join("");
+}
+function renderPlan() {
+  const items = Object.entries(PLAN).filter(([id]) => byId[id]).map(([id, p]) => ({ t: byId[id], p }))
+    .sort((a, b) => a.t.start.localeCompare(b.t.start));
+  const base = items.filter(x => x.p.status === "base"), short = items.filter(x => x.p.status !== "base");
+  const cnt = document.getElementById("plan-count");
+  cnt.textContent = base.length > PLAN_TARGET ? `${base.length}` : `${base.length}/${PLAN_TARGET}`; cnt.hidden = false;
+  document.getElementById("base-count").textContent = base.length > PLAN_TARGET ? `${base.length} chosen · target 4–5` : `${base.length} of ${PLAN_TARGET} chosen`;
+  document.getElementById("meter").innerHTML = Array.from({ length: Math.max(PLAN_TARGET, base.length) }, (_, i) => `<i class="${i < base.length ? "on" : ""}"></i>`).join("");
+  document.getElementById("plan-updated").textContent = PLAN_UPDATED;
+  renderCalendar(base);
+  renderCosts(base);
+  document.getElementById("base-list").innerHTML = base.length ? `<div class="cards">${base.map(x => card(x.t, x.p)).join("")}</div>`
+    : `<div class="empty-plan">No base tournaments chosen yet.</div>`;
+  document.getElementById("short-list").innerHTML = short.length ? `<div class="cards">${short.map(x => card(x.t, x.p)).join("")}</div>`
+    : `<div class="empty-plan">The shortlist is empty.</div>`;
+}
+
+function showTab(which) {
+  for (const k of ["list", "plan", "cal"]) {
+    document.getElementById("view-" + k).hidden = k !== which;
+    document.getElementById("tab-" + k).setAttribute("aria-selected", k === which);
+  }
+  try { localStorage.setItem("nups-tab", which); } catch (_) {}
+}
+document.getElementById("tab-list").addEventListener("click", () => showTab("list"));
+document.getElementById("tab-plan").addEventListener("click", () => showTab("plan"));
+document.getElementById("tab-cal").addEventListener("click", () => showTab("cal"));
+(function initTab() {
+  let t = ["#plan", "#cal"].includes(location.hash) ? location.hash.slice(1) : null;
+  if (!t) { try { t = localStorage.getItem("nups-tab"); } catch (_) {} }
+  showTab(["plan", "cal"].includes(t) ? t : "list");
+})();
+
+// ---------- All-events calendar ----------
+// Known game days for events that run on several separate days.
+const EVENT_DAYS = {
+  "italiiga-p": ["2026-11-07","2026-12-19","2027-02-13"],
+  "espoon-talvisarja": ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"],
+  "iif-minicup": ["2026-11-21","2027-02-06"],
+  "grifk-mcdonalds-talviliiga": ["2026-10-25","2026-11-15","2027-01-10","2027-01-31","2027-03-07","2027-04-04"],
+  "njs-minarit": ["2026-11-14","2026-12-05","2026-12-13","2027-01-09","2027-01-17","2027-01-30","2027-02-07","2027-03-06","2027-03-14","2027-04-10","2027-04-11"],
+  "pep-futsal-liiga": ["2026-10-24","2026-11-28","2027-01-16","2027-02-06","2027-03-13","2027-03-20"],
+  "japs-talviturnaukset": ["2026-11-28","2027-02-06"],
+  "talvi-vantaa-cup": ["2027-02-06","2027-03-05","2027-03-06","2027-03-07"],
+};
+// Events where NuPS is entered on only some of the days.
+const ENTERED_DAYS_ONLY = { "iif-minicup": ["2026-11-21"] };
+const SEASON_LONG = ["helsingin-talviliiga","winterliiga","pk-35-super-liiga","helsingin-liiga","uudenmaan-junioriliiga"];
+function evKind(t) {
+  const p = PLAN[t.id];
+  if (p && p.status === "base") return "base";
+  if (t.nups.s === "yes") return "en";
+  return "ot";
+}
+function tagsFor(t, notEntered) {
+  const p = PLAN[t.id];
+  let h = "";
+  if (p && p.status === "base") h += `<span class="tag base">base</span>`;
+  if (t.nups.s === "yes" && !notEntered) h += `<span class="tag en">entered</span>`;
+  if (p && p.status !== "base") h += `<span class="tag sl">shortlist</span>`;
+  return h;
+}
+function renderAllCal() {
+  const items = [];   // {t, kind, a, b, approx}
+  for (const t of T) {
+    if (SEASON_LONG.includes(t.id)) continue;
+    const kind = evKind(t);
+    if (EVENT_DAYS[t.id]) {
+      for (const day of EVENT_DAYS[t.id]) {
+        const notEntered = ENTERED_DAYS_ONLY[t.id] && !ENTERED_DAYS_ONLY[t.id].includes(day);
+        items.push({ t, kind: notEntered && kind === "en" ? "ot" : kind, a: d(day), b: d(day), approx: false, notEntered });
+      }
+      continue;
+    }
+    const approx = !!t.dateText && (!/^\d/.test(t.dateText) || /expected|\?/.test(t.dateText));
+    items.push({ t, kind, a: d(t.start), b: d(t.end || t.start), approx });
+  }
+  const rank = { base: 0, en: 1, ot: 2 };
+  document.getElementById("longlist").innerHTML = SEASON_LONG.map(id => byId[id]).filter(Boolean).map(t => {
+    const span = t.dateText ? t.dateText : `${fi(d(t.start), d(t.start).getFullYear() !== d(t.end || t.start).getFullYear())}–${fi(d(t.end || t.start))}`;
+    return `<li><span class="dot ${evKind(t)}"></span><span><a href="${t.url}" target="_blank" rel="noopener">${esc(t.name)}</a> <span class="small">· ${esc(span)} · ${esc(t.city)}</span>${tagsFor(t)}</span></li>`;
+  }).join("");
+  const out = [];
+  for (let m = new Date(CAL_START); m <= CAL_END; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) {
+    const y = m.getFullYear(), mo = m.getMonth(), dim = new Date(y, mo + 1, 0).getDate();
+    const mStart = new Date(y, mo, 1), mEnd = new Date(y, mo, dim);
+    const lead = (m.getDay() + 6) % 7;
+    const cells = ["Mo","Tu","We","Th","Fr","Sa","Su"].map(w => `<span class="wd">${w}</span>`);
+    for (let i = 0; i < lead; i++) cells.push(`<span></span>`);
+    for (let day = 1; day <= dim; day++) {
+      const dt = new Date(y, mo, day);
+      const hits = items.filter(e => !e.approx && dt >= e.a && dt <= e.b);
+      const cls = ["day"];
+      if (dt.getDay() === 0 || dt.getDay() === 6) cls.push("we");
+      if (hits.length) cls.push(hits.some(h => h.kind === "base") ? "ev" : hits.some(h => h.kind === "en") ? "en" : "ot");
+      if (+dt === +TODAY) cls.push("today");
+      cells.push(`<span class="${cls.join(" ")}"${hits.length ? ` title="${esc(hits.map(h => h.t.name).join(" + "))}"` : ""}>${day}</span>`);
+    }
+    const inMonth = items.filter(e => e.a <= mEnd && e.b >= mStart)
+      .sort((p, q) => (p.approx - q.approx) || (p.a - q.a) || (rank[p.kind] - rank[q.kind]));
+    const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
+      const dd = e.approx ? "≈" : (+e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`);
+      const name = e.t.name.replace(/ 20\d\d(–\d\d)?$/, "");
+      const note = e.approx ? ` <span class="ov">· ${esc(e.t.dateText)}</span>` : "";
+      return `<li class="${e.kind === "ot" ? "ot-item" : ""}"><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span><a href="${e.t.url}" target="_blank" rel="noopener">${esc(name)}</a>${note}${tagsFor(e.t, e.notEntered)}</span></li>`;
+    }).join("")}</ul>` : `<ul class="mevents"><li class="ov">No events</li></ul>`;
+    out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
+  }
+  document.getElementById("allcal").innerHTML = out.join("");
+}
+setupFilters(); summary(); render(); renderPlan(); renderAllCal();
+</script>
+
+</body>
+</html>
