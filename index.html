@@ -276,7 +276,7 @@ footer p { margin: 0; }
   <header>
     <div class="eyebrow">Nummelan Palloseura · Pojat 2017 (P9 → P10 / U10)</div>
     <h1>NuPS P17 Tournaments</h1>
-    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 9.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
+    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 15.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Views">
@@ -330,7 +330,7 @@ footer p { margin: 0; }
 
   <footer>
     <p><b>Status badges.</b> "Confirmed" means the organizer has published the 2026–27 edition. "Based on 2026" means only last year's edition was found, so dates, formats and fees may change. Palloliitto's 2027 format changes mean some P10 series move between 5v5, 7v7 and 8v8.</p>
-    <p><b>NuPS / FCK columns</b> come from the published team lists on 9.10.2026. "2026:" shows where the team played last year's edition as P9. "Not open" means registration hasn't started, so no list exists yet.</p>
+    <p><b>NuPS / FCK columns</b> come from the published team lists on 15.10.2026. "2026:" shows where the team played last year's edition as P9. "Not open" means registration hasn't started, so no list exists yet.</p>
     <p><b>Left out:</b> small distant one-day events (MP Mikkeli, Rauma, Vaasa, Nivala, Seinäjoki), invitation-only academy cups (HJK Cup, Ilves Cup), and tournaments with no 2017 boys series (Hyvinkää Kevätturnaus and 5v5 Eloturnaus, Alandia Cup, FC Honka Kevätturnaus for U10, NuPS's own Rosenström Cup and Lapin Kumi Cup).</p>
   </footer>
   </div>
@@ -391,9 +391,9 @@ footer p { margin: 0; }
         <table class="series">
           <thead><tr><th>Team</th><th>Series (2017)</th><th>Format</th><th>Registered so far</th></tr></thead>
           <tbody>
-            <tr><td><b>NuPS</b></td><td>Pojat 10 Kilpa</td><td>7v7 · 25 min</td><td>2 teams (NuPS, GrIFK/Brommapojkarna)</td></tr>
-            <tr><td><b>NuPS/musta</b></td><td>Pojat 10 Haaste</td><td>5v5 · 25 min</td><td>3 teams (NuPS/musta, GrIFK/AIK, GrIFK/Hammarby)</td></tr>
-            <tr><td><b>NuPS/valkoinen</b></td><td>Pojat 10 Harraste</td><td>5v5 · 25 min</td><td>2 teams (NuPS/valkoinen, GrIFK/Djurgården)</td></tr>
+            <tr><td><b>NuPS</b></td><td>Pojat 10 Kilpa</td><td>7v7 · 25 min</td><td>5 teams (NuPS, FC Kirkkonummi, GrIFK ×2, LoPa)</td></tr>
+            <tr><td><b>NuPS/musta</b></td><td>Pojat 10 Haaste</td><td>5v5 · 25 min</td><td>5 teams (NuPS/musta, FCK Black, GrIFK ×2, LoPa)</td></tr>
+            <tr><td><b>NuPS/valkoinen</b></td><td>Pojat 10 Harraste</td><td>5v5 · 25 min</td><td>4 teams (NuPS/valkoinen, FCK White, GrIFK, LoPa)</td></tr>
           </tbody>
         </table>
       </div>
@@ -417,15 +417,15 @@ const T = [
     city:"Helsinki", venue:"Halls in Jätkäsaari, Käpylä, Lauttasaari, Myllypuro",
     levels:"Eliitti, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> all levels · Eliitti also <b>7v7</b>",
     match:"5v5 1×20 min · 7v7 1×25 min", games:"18 (5v5) · 10 (7v7)", fee:"€329 (5v5) · €499 (7v7)",
-    dl:[{text:"Eliitti 5v5: 3 spots left · Eliitti 7v7: 1 spot left · others full", warn:true}],
+    dl:[{text:"Eliitti 5v5: 2 spots left · Eliitti 7v7: 1 spot left · others full", warn:true}],
     nups:{s:"no"}, fck:{s:"no",t:"only girls 2017"}, url:"https://talviliiga.torneopal.fi/", url2:"https://talviliiga.com/sarjat/", st:"ok" },
 
   { id:"p-shortsiturnaus", name:"P2017 Shortsiturnaus", io:"in", org:"KEIKA P2017", start:"2026-10-24", city:"Vantaa", venue:"Myyrmäkihalli (indoor)",
     levels:"Kilpa, Haaste, Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"min 3", fee:"€150",
-    dl:[{text:"Open, no deadline stated · 28 teams so far (Kilpa 6, Haaste 13, Harraste 9)"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{text:"Open · 28 teams (Kilpa 6, Haaste 13, Harraste 9) · schedule out on keikaturnaus.fi"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://www.gameresultsonline.com/keika-p2017/shortsiturnaus-p2017-harraste-haaste-ja-kilpa", st:"ok" },
 
-  { id:"winterliiga", name:"Winterliiga 2026–27", io:"both", ioNote:"Halls + heated turf · Elite indoor only", org:"HJK & Käpylän Pallo · league", start:"2026-10-31", end:"2027-03-14", dateNote:"Last P2017 day 13–14.3 · schedule out 13.10",
+  { id:"winterliiga", name:"Winterliiga 2026–27", io:"both", ioNote:"Halls + heated turf · Elite indoor only", org:"HJK & Käpylän Pallo · league", start:"2026-10-31", end:"2027-03-14", dateNote:"Base-round schedule published · days vary by level",
     city:"Helsinki / Vantaa", venue:"KäPa Campus, Peakfin Arena, Pajamäki, Pikkupekka Areena, Töölö kupla…",
     levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Elite/Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
     match:"1×25 min", games:"min 10 (7v7) · min 15 (5v5)", fee:"€495 7v7 (Elite indoor €690) · €345 5v5",
@@ -435,14 +435,14 @@ const T = [
   { id:"italiiga-p", name:"Itäliiga P2017", io:"in", org:"FC Kontu · 3 single days", start:"2026-11-07", dateText:"7.11 · 19.12 · 13.2.2027", dateNote:"Enter each day separately",
     city:"Helsinki", venue:"Jakomäki-Areena (heated bubble)",
     levels:"Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
-    match:"1×25 min", games:"about 2 per day", fee:"€65 per day",
-    dl:[{text:"Google form on FC Kontu's page"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"no"},
+    match:"1×25 min", games:"2 per day", fee:"€65 per day",
+    dl:[{text:"Teams so far: 7.11: 9 · 19.12: 5 · 13.2: 10"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"no"},
     url:"https://www.fckontu.fi/seura/3293/italiiga", st:"ok" },
 
-  { id:"espoon-talvisarja", name:"Espoon Talvisarja 2026–27", io:"in", org:"EPS · season series", start:"2026-11-08", end:"2027-03-21", dateText:"8.11 · 29.11 · 10.1 · 31.1 · 7.3 · 21.3", dateNote:"Sundays · 10.1, 31.1 and 7.3 clash with GrIFK Talviliiga (NuPS/musta in both)",
+  { id:"espoon-talvisarja", name:"Espoon Talvisarja 2026–27", io:"in", org:"EPS · season series", start:"2026-11-08", end:"2027-03-21", dateText:"8.11 · 29.11 · 10.1 · 31.1 · 7.3 · 21.3", dateNote:"Sundays · 10.1 clashes with GrIFK Talviliiga (NuPS/musta); 31.1 times don't overlap",
     city:"Espoo", venue:"Myntinsyrjä hall (warm indoor)",
     levels:"Taso 2 Haaste, Taso 3 Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"18 min", games:"18 (3 per day)", fee:"€445",
-    dl:[{text:"Full · reserve list for Taso 2"}], nups:{s:"yes",t:"Taso 2 Haaste (NuPS/musta)"}, fck:{s:"no"},
+    dl:[{text:"Closed"}], nups:{s:"yes",t:"Taso 2 Haaste (NuPS/musta)"}, fck:{s:"no"},
     url:"https://espoontalvisarja.torneopal.fi/", st:"ok" },
 
   { id:"saastopankki-turnaus", name:"Säästöpankki-turnaus", io:"in", org:"HJS Hämeenlinna", start:"2026-11-21", dateNote:"Same day as IIF minicup (NuPS in both)", city:"Hämeenlinna", venue:"Säästöpankki-areena (indoor, ~18 °C)",
@@ -454,7 +454,7 @@ const T = [
   { id:"iif-minicup", name:"IIF minicup", io:null, org:"Ingå IF", start:"2026-11-21", dateText:"21.11.2026 · 6.2.2027", dateNote:"21.11 is the same day as Säästöpankki-turnaus",
     city:"Inkoo", venue:"Nylund Arena, Kanonvägen 3",
     levels:"P2017 (details not published)", fmt:[], fmtText:"—", match:"—", games:"—", fee:"—",
-    dl:[{text:"Ask IIF · 21.11: 6 teams · 6.2: 1 team so far"}], nups:{s:"yes",t:"21.11 (NuPS P17 / valkoinen)"}, fck:{s:"no"},
+    dl:[{text:"Ask IIF · 21.11: 8 teams · 6.2: 2 teams so far"}], nups:{s:"yes",t:"21.11 (NuPS P17 / valkoinen)"}, fck:{s:"no"},
     url:"https://www.fudisturnaus.com/t/iif-minicup-syksy-2026", st:"ok" },
 
   { id:"kinkunsulatusturnaus", name:"Kinkunsulatusturnaus", io:"in", org:"TuPS", start:"2027-01-06", dateText:"6.1.2027 (expected)", dateNote:"First held 6.1.2026 (P7–P9 only)",
@@ -470,7 +470,7 @@ const T = [
 
   { id:"hjk-talviturnaus", name:"HJK Talviturnaus 2027", io:"in", org:"HJK", start:"2027-01-30", city:"Helsinki", venue:"Töölö kuplahalli (indoor)",
     levels:"Harraste only", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"25 min", games:"4 (rules: 3–4)", fee:"€105 early bird · then €125",
-    dl:[{date:"2026-11-15",label:"early bird ends"},{date:"2026-11-30",label:"free cancellation ends"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{date:"2026-11-15",label:"early bird ends"},{date:"2026-11-30",label:"free cancellation ends"},{text:"1/20 registered"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://hjktalvi.torneopal.fi/", st:"ok" },
 
   { id:"hjk-7v7-kevatturnaus", name:"HJK 7v7 Kevätturnaus", io:"out", org:"HJK", start:"2027-03-27", dateText:"Late March 2027?", dateNote:"Only a 2026 edition (28–29.3) · Easter is 28.3.2027",
@@ -479,11 +479,11 @@ const T = [
     dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
     url:"https://hjkkevat.torneopal.fi/", st:"est" },
 
-  { id:"kultanummiturnaus", name:"Kultanummiturnaus", io:"out", org:"Littoisten Työväen Urheilijat", start:"2027-04-10", dateText:"April 2027", dateNote:"2026 was 11–12.4",
-    city:"Lieto / Kaarina", venue:"Kultanummi",
-    levels:"Kilpa, Haaste (2026)", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"2×15 min", games:"—", fee:"€220 (2026)",
-    dl:[{text:"2026 deadline was 28.2"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
-    url:"https://kultanummiturnaus.torneopal.fi/", st:"est" },
+  { id:"kultanummiturnaus", io:"out", name:"Kultanummiturnaus 2027", org:"Littoisten Työväen Urheilijat", start:"2027-04-10", end:"2027-04-11",
+    city:"Lieto / Turku area", venue:"Littoinen, Ilmatalo areena, Rusko and other fields",
+    levels:"Kilpa, Haaste (max 8 each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"2×15 min", games:"—", fee:"€230",
+    dl:[{date:"2027-02-28",label:"registration closes (binding when paid)"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://kultanummiturnaus.torneopal.fi/", st:"ok" },
 
   { id:"helsinki-kick-off-cup", name:"Helsinki Kick Off Cup", io:"in", org:"PPJ", start:"2027-04-17", dateText:"April 2027?", dateNote:"Only a 2026 edition (18–19.4) so far",
     city:"Helsinki", venue:"Intersport Areena, Jätkäsaari",
@@ -568,7 +568,7 @@ const T = [
     city:"Hyvinkää", venue:"Hyvinkää, Rajamäki, Jokela, Riihimäki",
     levels:"Taso 1, Taso 2, Taso 3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>",
     match:"2×18 min", games:"6", fee:"€269 / €239 (early €229 / €209)", feeNote:"Book 2-night school lodging before 1.1.2027 → team fee free (1 night → −50%). Lodging + meals €80 / €120 per person · transport €25",
-    dl:[{date:"2026-12-31",label:"early bird & lodging discount end"},{text:"Early bird also ends when 4 outside teams register; series already show 5–7 teams", warn:true},{date:"2027-03-31",label:"free cancellation ends"}],
+    dl:[{date:"2027-01-01",label:"early bird & lodging discount end"},{text:"Early bird also ends when 4 outside teams register; series already show 5–7 teams", warn:true},{date:"2027-03-31",label:"free cancellation ends"}],
     nups:{s:"no"}, fck:{s:"no"}, url:"https://eloturnaus.torneopal.fi/", st:"ok" },
 
   { id:"itameri-cup", name:"Itämeri Cup", io:null, org:"FC HIK", start:"2027-07-31", dateText:"Early Aug 2027", dateNote:"2026 was 1–2.8",
@@ -612,14 +612,14 @@ const T = [
     url:"https://grifktalviliiga.torneopal.fi/", st:"ok", isNew:true },
 
   { id:"hjk-7v7-syysturnaus", name:"HJK 7v7 Syysturnaus", io:"out", org:"HJK", start:"2026-11-14", city:"Helsinki", venue:"Pajamäki (artificial turf)",
-    levels:"Taso 1 Kilpa (invitation), Haaste, Harraste", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"—", fee:"€120",
-    dl:[{date:"2026-10-18",label:"registration closes (limited spots)"}], nups:{s:"no"}, fck:{s:"no"},
+    levels:"Taso 1 Kilpa (invitation), Haaste", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"—", fee:"€120",
+    dl:[{date:"2026-10-18",label:"registration closes"},{text:"Kilpa 6 · Haaste 5 teams"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://www.hjk-j.fi/palvelut/7v7-turnaukset/", st:"ok", isNew:true },
 
   { id:"njs-minarit", name:"NJS Minarit 2026–27", io:"in", org:"Nurmijärven JS · single days", start:"2026-11-14", end:"2027-04-11", dateText:"14.11 · 5.12 · 9.1 · 30.1 · 6.3 · 10.4", dateNote:"Kilpa/Harraste days · Haaste: 14.11, 13.12, 17.1, 7.2, 14.3, 11.4 · enter each day separately",
     city:"Klaukkala", venue:"Nurmijärven Sähkö Areena (indoor)",
     levels:"Kilpa, Haaste, Harraste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"3 per day", fee:"€100 per day",
-    dl:[{text:"Open on every day · free cancellation up to 30 days before"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{text:"Open · 10.4 Harraste and 11.4 Haaste full · free cancellation 30 days before"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://njsminarit.torneopal.fi/", st:"ok", isNew:true },
   { id:"pep-futsal-liiga", io:"in", name:"PEP Futsal liiga 2026–27", org:"Pohjois-Espoon Ponsi · futsal series", start:"2026-10-24", end:"2027-03-20", dateText:"24.10 · 28.11 · 16.1 · 6.2 · 13.3 · 20.3", dateNote:"Saturdays, 4 days per team",
     city:"Espoo", venue:"Kalajärven koulu, Hiirisuontie 1 (school hall)",
@@ -629,7 +629,7 @@ const T = [
   { id:"united-kutsuturnaus", io:"in", name:"Käpylä United Kutsuturnaus 2027", org:"Käpylä United · invitation only", start:"2027-01-30", end:"2027-01-31", dateNote:"Group games Sat, placement games Sun (page also mentions 31.1–1.2, check)",
     city:"Helsinki", venue:"Myllypuron jalkapallohalli (indoor)",
     levels:"One 2017 series (12 teams)", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"group + placement", fee:"—",
-    dl:[{text:"Invitation only · 6/12 places for 2017 filled · ask Käpylä United", warn:true}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    dl:[{text:"Invitation only · 7/12 places for 2017 filled · ask Käpylä United", warn:true}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://www.kapylaunited.fi/u10u11turnaus/", st:"ok", isNew:true },
 
   { id:"united-kevatturnaus", io:"out", name:"Käpylä United Kevätturnaus", org:"Käpylä United & Talviliiga", start:"2027-05-15", dateText:"May 2027 (≈ 15–16.5)", dateNote:"3rd weekend of May every year · each team plays one day",
@@ -689,6 +689,11 @@ const T = [
     levels:"Taso 2–3 (5v5) · Kilpa invitation (7v7)", fmt:["5v5","7v7"], fmtText:"Taso 2–3 <b>5v5</b> · Kilpa <b>7v7</b>", match:"5v5 1×25 · 7v7 2×18 min", games:"4 (5v5) · 5 (7v7)", fee:"5v5 €149 early · €170 · 7v7 €380",
     dl:[{date:"2026-10-31",label:"early bird ends (5v5)"},{text:"Taso 2: 2/16 · taso 3: 1/16 registered"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://talvivantaacup.torneopal.fi/", st:"ok", isNew:true },
+  { id:"kjs-kevat-cup", io:"out", name:"KJS Kevät Cup 2027", org:"Karkkilan Jalkapalloseura", start:"2027-05-06", dateNote:"Thursday (Ascension Day)",
+    city:"Karkkila", venue:"Harjun tekonurmi (turf)",
+    levels:"Haaste, Harraste", fmt:[], fmtText:"not stated", match:"—", games:"—", fee:"—",
+    dl:[{text:"Open · Harraste 2 teams, Haaste 0"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://www.gameresultsonline.com/karkkilan-jalkapalloseura/kjs-kevat-cup-2027", st:"ok", isNew:true },
 ];
 
 const PERIODS = [
@@ -820,7 +825,7 @@ function setupFilters() {
 
 // ---------- Season plan (maintained in this file; ask Claude to update) ----------
 const PLAN_TARGET = 5;
-const PLAN_UPDATED = "10.10.2026";
+const PLAN_UPDATED = "15.10.2026";
 // status: "base" = decided, "maybe" = shortlist
 const PLAN = {
  "helsinki-cup": {
@@ -894,6 +899,10 @@ const PLAN = {
  "talvi-vantaa-cup": {
   "status": "maybe",
   "note": "Myyrmäki indoor halls. Sat 6.2.2027: 5v5 taso 2 (≈ Palloliitto etelä taso 3) and taso 3 (etelä 4–5), 4 games, €149 per team until 31.10.2026, then €170. Kilpa team: invitation 7v7 series 5–7.3.2027, 5 games, €380. 6.2 is also a PEP futsal day for NuPS/musta and NuPS/punainen."
+ },
+ "kjs-kevat-cup": {
+  "status": "maybe",
+  "note": "Karkkila, about 30 km from Nummela. Thursday 6.5.2027 (Ascension Day), Haaste and Harraste only. Format and fee not published yet."
  }
 };
 const byId = Object.fromEntries(T.map(t => [t.id, t]));
@@ -997,6 +1006,8 @@ const MONTHS = ["January","February","March","April","May","June","July","August
 const OVERNIGHT = new Set(["kesa-aura-cup","heinacup","kokkola-cup","kuopio-cup"]);
 // Events NuPS is already entered in (shown in the calendar next to the base tournaments).
 const CAL_START = new Date(2026, 9, 1), CAL_END = new Date(2027, 8, 30);
+// Same-team double bookings checked against game times: no real clash on these days.
+const NO_CLASH = { "2027-01-31": "same team, times don't overlap" };
 const ENTERED_CAL = [
   { id: "grifk-mcdonalds-talviliiga", label: "GrIFK Talviliiga", who: "all 3 teams", teams: ["nups","musta","valkoinen"], days: ["2026-10-25","2026-11-15","2027-01-10","2027-01-31","2027-03-07","2027-04-04"] },
   { id: "espoon-talvisarja", label: "Espoon Talvisarja", who: "NuPS/musta", teams: ["musta"], days: ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"] },
@@ -1027,7 +1038,8 @@ function renderCalendar(base) {
       if (dt.getDay() === 0 || dt.getDay() === 6) cls.push("we");
       if (hits.some(h => h.kind === "base")) cls.push("ev");
       else if (hits.length) cls.push("en");
-      if (hits.some((h, i) => hits.some((o, j) => j > i && o.teams.some(x => h.teams.includes(x))))) cls.push("clash");
+      const isoD = `${y}-${String(mo+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      if (!NO_CLASH[isoD] && hits.some((h, i) => hits.some((o, j) => j > i && o.teams.some(x => h.teams.includes(x))))) cls.push("clash");
       if (+dt === +TODAY) cls.push("today");
       cells.push(`<span class="${cls.join(" ")}"${hits.length ? ` title="${esc(hits.map(h => h.name).join(" + "))}"` : ""}>${day}</span>`);
     }
@@ -1036,8 +1048,9 @@ function renderCalendar(base) {
     const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
       const dd = +e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`;
       const others = evs.filter(o => o !== e && o.a <= e.b && o.b >= e.a);
-      const clash = others.some(o => o.teams.some(x => e.teams.includes(x)));
-      const flag = clash ? ` <span class="cl">· clash</span>` : others.some(o => o.ev !== e.ev) ? ` <span class="ov">· same day, other team</span>` : "";
+      const iso = `${e.a.getFullYear()}-${String(e.a.getMonth()+1).padStart(2,"0")}-${String(e.a.getDate()).padStart(2,"0")}`;
+      const clash = others.some(o => o.teams.some(x => e.teams.includes(x))) && !NO_CLASH[iso];
+      const flag = NO_CLASH[iso] && others.length ? ` <span class="ov">· ${NO_CLASH[iso]}</span>` : clash ? ` <span class="cl">· clash</span>` : others.some(o => o.ev !== e.ev) ? ` <span class="ov">· same day, other team</span>` : "";
       return `<li><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span>${esc(e.name)}${e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : ""}${flag}</span></li>`;
     }).join("")}</ul>` : `<ul class="mevents"><li class="ov">Nothing planned</li></ul>`;
     out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
