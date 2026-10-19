@@ -699,6 +699,12 @@ const T = [
     levels:"P2016 Kilpa, Haaste, Harraste (6 each, full)", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"25 min", games:"4", fee:"€225",
     dl:[{text:"Full"}], nups:{s:"yes",t:"P2016 Haaste (NuPS P17, playing up)"}, fck:{s:"no"},
     url:"https://www.fudisturnaus.com/t/fenno-optiikka-rosenstrom-cup-p2016", st:"ok", isNew:true },
+  { id:"sarkanniemi-cup", io:"both", ioNote:"Turf fields + Pirkkahalli", name:"Särkänniemi Cup", org:"TPV, Tampere", start:"2027-06-24", end:"2027-06-27", dateText:"Late June 2027 (≈ 24–27.6)", dateNote:"Every late June · 2026 (40th edition) was 25–28.6",
+    city:"Tampere", venue:"Ahvenisjärvi, Kauppi, Pirkkahalli",
+    levels:"Kilpa, Haaste, Harraste (2026 P10)", fmt:["8v8"], fmtText:"P10 <b>8v8</b> (2026)", match:"2×20 min", games:"min 6", fee:"—",
+    feeNote:"School lodging, hotels, buses and meals (€12) available",
+    dl:[{text:"2026: registration closed 27.5, free cancellation until 30.5"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
+    url:"https://sarkanniemicup.torneopal.fi/", st:"est", isNew:true },
 ];
 
 const PERIODS = [
@@ -908,6 +914,10 @@ const PLAN = {
  "kjs-kevat-cup": {
   "status": "maybe",
   "note": "Karkkila, about 30 km from Nummela. Thursday 6.5.2027 (Ascension Day), Haaste and Harraste only. Format and fee not published yet."
+ },
+ "sarkanniemi-cup": {
+  "status": "maybe",
+  "note": "Overnight trip to Tampere, about 170 km. Expected Thu–Sun ≈ 24–27.6.2027. In 2026 P10 had Kilpa, Haaste and Harraste at 8v8, 2×20 min, at least 6 games; P8–P11 played only Friday morning on Särkänniemi day so teams can visit the park. School lodging, hotels and buses through the tournament. Fee not shown yet."
  }
 };
 const byId = Object.fromEntries(T.map(t => [t.id, t]));
@@ -930,6 +940,7 @@ const HISTORY = {
   "porvoo-cup": "Recurring first half of June since 2024 (2025: 120 teams)",
   "hyvinkaan-eloturnaus": "Recurring turn of July/Aug since 2020 (2026: 218 teams)",
   "kesa-aura-cup": "23rd edition in 2026; normally last weekend of June",
+  "sarkanniemi-cup": "40th edition was 25–28.6.2026; held in late June",
 };
 function planBtn(t) {
   const p = PLAN[t.id];
@@ -1008,7 +1019,7 @@ function renderCosts(base) {
   document.getElementById("costnote").textContent = "Entry fees only. Travel, meals and tournament passes are not included. Series and leagues (GrIFK Talviliiga, Espoon Talvisarja, PEP Futsal liiga, Länsi-Uudenmaan liiga, Palloliitto) aren't included. Per-player shares assume 7 players in a 5v5 team, 10 in a 7v7 team and 11 in an 8v8 team. Kevätturnaus and Pingviini Cup assume all three teams in 5v5; an Elite 7v7 place costs €395.";
 }
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const OVERNIGHT = new Set(["kesa-aura-cup","heinacup","kokkola-cup","kuopio-cup"]);
+const OVERNIGHT = new Set(["sarkanniemi-cup","kesa-aura-cup","heinacup","kokkola-cup","kuopio-cup"]);
 // Events NuPS is already entered in (shown in the calendar next to the base tournaments).
 const CAL_START = new Date(2026, 9, 1), CAL_END = new Date(2027, 8, 30);
 // Same-team double bookings checked against game times: no real clash on these days.
