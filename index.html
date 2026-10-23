@@ -276,7 +276,7 @@ footer p { margin: 0; }
   <header>
     <div class="eyebrow">Nummelan Palloseura · Pojat 2017 (P9 → P10 / U10)</div>
     <h1>NuPS P17 Tournaments</h1>
-    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 21.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
+    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 23.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Views">
@@ -330,7 +330,7 @@ footer p { margin: 0; }
 
   <footer>
     <p><b>Status badges.</b> "Confirmed" means the organizer has published the 2026–27 edition. "Based on 2026" means only last year's edition was found, so dates, formats and fees may change. Palloliitto's 2027 format changes mean some P10 series move between 5v5, 7v7 and 8v8.</p>
-    <p><b>NuPS / FCK columns</b> come from the published team lists on 21.10.2026. "2026:" shows where the team played last year's edition as P9. "Not open" means registration hasn't started, so no list exists yet.</p>
+    <p><b>NuPS / FCK columns</b> come from the published team lists on 23.10.2026. "2026:" shows where the team played last year's edition as P9. "Not open" means registration hasn't started, so no list exists yet.</p>
     <p><b>Left out:</b> small distant one-day events (MP Mikkeli, Rauma, Vaasa, Nivala, Seinäjoki), invitation-only academy cups (HJK Cup, Ilves Cup), and tournaments with no 2017 boys series (Hyvinkää Kevätturnaus and 5v5 Eloturnaus, Alandia Cup, FC Honka Kevätturnaus for U10, NuPS's own Lapin Kumi Cup).</p>
   </footer>
   </div>
@@ -436,7 +436,7 @@ const T = [
     city:"Helsinki", venue:"Jakomäki-Areena (heated bubble)",
     levels:"Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
     match:"1×25 min", games:"2 per day", fee:"€65 per day",
-    dl:[{text:"Teams so far: 7.11: 9 · 19.12: 5 · 13.2: 10"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"no"},
+    dl:[{text:"Teams so far: 7.11: 11 · 19.12: 6 · 13.2: 11"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"no"},
     url:"https://www.fckontu.fi/seura/3293/italiiga", st:"ok" },
 
   { id:"espoon-talvisarja", name:"Espoon Talvisarja 2026–27", io:"in", org:"EPS · season series", start:"2026-11-08", end:"2027-03-21", dateText:"8.11 · 29.11 · 10.1 · 31.1 · 7.3 · 21.3", dateNote:"Sundays · 10.1 and 7.3 clash with GrIFK Talviliiga (NuPS/musta); 31.1 very tight",
@@ -465,7 +465,7 @@ const T = [
 
   { id:"talvi-aura-cup", name:"Talvi Aura Cup 2027", io:"in", org:"FC TPS", start:"2027-01-10", city:"Turku", venue:"Impivaaran jalkapallohalli (indoor)",
     levels:"Kilpa, Haaste", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"20 min", games:"6", fee:"€150",
-    dl:[{text:"Kilpa open (3/6) · Haaste 5/6, 2 in queue"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{text:"Kilpa open (4/6) · Haaste 5/6, 2 in queue"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://talviauracup2027.torneopal.fi/", st:"ok" },
 
   { id:"hjk-talviturnaus", name:"HJK Talviturnaus 2027", io:"in", org:"HJK", start:"2027-01-30", city:"Helsinki", venue:"Töölö kuplahalli (indoor)",
@@ -473,16 +473,16 @@ const T = [
     dl:[{date:"2026-11-15",label:"early bird ends"},{date:"2026-11-30",label:"free cancellation ends"},{text:"1/20 registered"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://hjktalvi.torneopal.fi/", st:"ok" },
 
-  { id:"hjk-7v7-kevatturnaus", name:"HJK 7v7 Kevätturnaus", io:"out", org:"HJK", start:"2027-03-27", dateText:"Late March 2027?", dateNote:"Only a 2026 edition (28–29.3) · Easter is 28.3.2027",
-    city:"Helsinki", venue:"Pajamäki",
-    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["7v7"], fmtText:"<b>7v7</b>", match:"1×20 min", games:"—", fee:"—",
-    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
-    url:"https://hjkkevat.torneopal.fi/", st:"est" },
+  { id:"hjk-7v7-kevatturnaus", io:"out", name:"HJK 7v7 Kevätturnaus 2027", org:"HJK", start:"2027-04-03", end:"2027-04-04", dateNote:"One day per team",
+    city:"Helsinki", venue:"Pajamäki & Töölö 7v7 turf",
+    levels:"Kilpa, Kilpa/Haaste, Haaste, Haaste/Harraste, Harraste", fmt:["7v7"], fmtText:"<b>7v7</b> (no offside)", match:"—", games:"—", fee:"—",
+    dl:[{text:"Fee and registration not published yet"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://tulospalvelu.palloliitto.fi/tournaments/%C2%A71_0016/info", st:"ok" },
 
   { id:"kultanummiturnaus", io:"out", name:"Kultanummiturnaus 2027", org:"Littoisten Työväen Urheilijat", start:"2027-04-10", end:"2027-04-11",
     city:"Lieto / Turku area", venue:"Littoinen, Ilmatalo areena, Rusko and other fields",
     levels:"Kilpa, Haaste (max 8 each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"2×15 min", games:"—", fee:"€230",
-    dl:[{date:"2027-02-28",label:"registration closes (binding when paid)"},{text:"Kilpa 1/8 · Haaste 6/8"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{date:"2027-02-28",label:"registration closes (binding when paid)"},{text:"Kilpa 2/8 · Haaste 7/8"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://kultanummiturnaus.torneopal.fi/", st:"ok" },
 
   { id:"helsinki-kick-off-cup", name:"Helsinki Kick Off Cup", io:"in", org:"PPJ", start:"2027-04-17", dateText:"April 2027?", dateNote:"Only a 2026 edition (18–19.4) so far",
@@ -505,8 +505,8 @@ const T = [
 
   { id:"kevatturnaus", name:"Kevätturnaus 2027", io:"out", org:"Käpylän Pallo", start:"2027-05-29", end:"2027-05-30", city:"Helsinki", venue:"Käpylän urheilupuisto & KäPa Campus",
     levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> · Elite <b>7v7</b>",
-    match:"18 min (5v5) · 25 min (7v7)", games:"6", fee:"5v5 €220 · 2 teams €380 · 3 €555 · 4 €700 · Elite 7v7 €395",
-    dl:[{date:"2026-11-01",label:"registration opens"},{date:"2027-03-21",label:"or when full"}],
+    match:"18 min (5v5) · 25 min (7v7)", games:"6", fee:"Early bird: 5v5 €190 · 2 teams €330 · 3 €480 · Elite €345 (later €220 / €380 / €555 / €395)",
+    dl:[{date:"2026-11-01",label:"registration opens"},{date:"2026-12-06",label:"early bird ends"},{date:"2027-03-14",label:"registration closes (or when full)"}],
     nups:{s:"notopen"}, fck:{s:"notopen"}, url:"https://kevatturnaus.com/", st:"ok" },
 
   { id:"lohja-cup-op-uusimaa", name:"Lohja Cup (OP Uusimaa)", io:"out", org:"Lohjan Pallo", start:"2027-06-05", dateText:"Early June 2027", dateNote:"2026 was 6–7.6",
@@ -527,11 +527,12 @@ const T = [
     dl:[{date:"2026-12-31",label:"early bird ends"},{date:"2027-04-03",label:"free cancellation ends (approx.)"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://porvoocup.torneopal.fi/", st:"ok" },
 
-  { id:"vantaa-cup", name:"Vantaa Cup", io:"out", org:"VJS", start:"2027-06-12", dateText:"June 2027", dateNote:"2026: 5v5 on 13–14.6, 8v8 on 26–28.6",
-    city:"Vantaa", venue:"—",
-    levels:"Kutsu, Avoin, Harraste (2026 U10)", fmt:["5v5","8v8"], fmtText:"<b>5v5</b> or <b>8v8</b> event", match:"2×20 min (Harraste 2×15)", games:"6 (Harraste 5)", fee:"—",
-    dl:[{text:"Not published"}], nups:{s:"prev",t:"2026: U9 5v5 (NuPS/musta)"}, fck:{s:"no",t:"2026: no"},
-    url:"https://vjs.fi/vantaacup/", st:"est" },
+  { id:"vantaa-cup", io:"both", ioNote:"Myyrmäki hall + fields", name:"Vantaa Cup 2027", org:"VJS", start:"2027-06-12", dateText:"12.6.2027 (5v5) · 2–4.7.2027 (7v7)", dateNote:"U10 5v5 plays Saturday 12.6",
+    city:"Vantaa", venue:"Myyrmäki, Vapaalanaukee, Kartanonkoski, Tikkurila",
+    levels:"Taso 2, Taso 3 (5v5) · Kutsu (7v7)", fmt:["5v5","7v7"], fmtText:"Taso 2–3 <b>5v5</b> · Kutsu <b>7v7</b>", match:"5v5 1×25 · 7v7 2×20 min", games:"4 (5v5) · 6 (7v7)", fee:"—",
+    feeNote:"Entry free for teams booking lodging through the cup",
+    dl:[{text:"Registration not open yet"}], nups:{s:"prev",t:"2026: U9 5v5 (NuPS/musta)"}, fck:{s:"no",t:"2026: no"},
+    url:"https://vantaacup2027.torneopal.fi/", st:"ok" },
 
   { id:"stadium-turnaus", name:"Stadium-turnaus 2027", io:"out", org:"HJS Hämeenlinna", start:"2027-06-19", end:"2027-06-20", city:"Hämeenlinna", venue:"Pullerin kentät",
     levels:"Kilpa, Harraste", fmt:[], fmtText:"not stated", match:"—", games:"—", fee:"€195", feeNote:"School lodging €32/person/night · meals €11",
@@ -571,11 +572,12 @@ const T = [
     dl:[{date:"2027-01-01",label:"early bird & lodging discount end"},{text:"Early bird also ends when 4 outside teams register; series already show 5–7 teams", warn:true},{date:"2027-03-31",label:"free cancellation ends"}],
     nups:{s:"no"}, fck:{s:"no"}, url:"https://eloturnaus.torneopal.fi/", st:"ok" },
 
-  { id:"itameri-cup", name:"Itämeri Cup", io:null, org:"FC HIK", start:"2027-07-31", dateText:"Early Aug 2027", dateNote:"2026 was 1–2.8",
-    city:"Hanko", venue:"Rukki Arena",
-    levels:"P10 (2026)", fmt:["8v8"], fmtText:"<b>8v8</b> (2026)", match:"2×20 min", games:"2 days", fee:"€200 (2026)",
-    dl:[{text:"Not published"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
-    url:"https://itamericup.torneopal.fi/", st:"est" },
+  { id:"itameri-cup", io:"out", name:"Itämeri Cup 2027", org:"FC HIK", start:"2027-08-01", dateNote:"Event 31.7–1.8 · P10 plays Sunday",
+    city:"Hanko", venue:"Rukki Arena (Hangethe Sport Center)",
+    levels:"Played more / played less (20 each)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"—", games:"one day", fee:"€120",
+    feeNote:"School lodging and meals available",
+    dl:[{text:"Open · 1/20 and 0/20 registered"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://itamericup.torneopal.fi/", st:"ok" },
 
   { id:"kuopio-cup", name:"Kuopio Cup 2027", io:"out", org:"Kuopio Cup", start:"2027-08-06", end:"2027-08-08", city:"Kuopio", venue:"—",
     levels:"Taso 1, Taso 2–3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>", match:"—", games:"—", fee:"€299 (early €229)", feeNote:"School lodging + meals €119 (2 nights) / €79 (1 night) per person",
@@ -663,7 +665,7 @@ const T = [
 
   { id:"helsingin-liiga", io:"out", name:"HJK Helsingin Liiga 2027", org:"HJK · new league", start:"2027-04-01", end:"2027-10-15", dateNote:"Schedules out 1.3.2027",
     city:"Helsinki", venue:"—",
-    levels:"Not published yet", fmt:["7v7"], fmtText:"<b>7v7</b> for 2017", match:"—", games:"—", fee:"—",
+    levels:"Top 2 levels only", fmt:["7v7"], fmtText:"<b>7v7</b> for 2017", match:"—", games:"—", fee:"—",
     dl:[{date:"2026-11-01",label:"registration opens"},{date:"2027-01-15",label:"registration closes"},{text:"Aimed at Helsinki clubs"}], nups:{s:"notopen"}, fck:{s:"notopen"},
     url:"https://www.hjk-j.fi/palvelut/turnaukset-ja-sarjat/helsingin-liiga/", st:"ok", isNew:true },
 
@@ -687,7 +689,7 @@ const T = [
   { id:"talvi-vantaa-cup", io:"in", name:"Talvi Vantaa Cup 2027", org:"VJS", start:"2027-02-06", dateText:"6.2.2027 · 5–7.3.2027", dateNote:"U10 5v5 on Sat 6.2 · 7v7 Kilpa in March",
     city:"Vantaa", venue:"Aktia Areena & Myyrmäki-halli (indoor)",
     levels:"Taso 2–3 (5v5) · Kilpa invitation (7v7)", fmt:["5v5","7v7"], fmtText:"Taso 2–3 <b>5v5</b> · Kilpa <b>7v7</b>", match:"5v5 1×25 · 7v7 2×18 min", games:"4 (5v5) · 5 (7v7)", fee:"5v5 €149 early · €170 · 7v7 €380",
-    dl:[{date:"2026-10-31",label:"early bird ends (5v5)"},{date:"2026-12-31",label:"free cancellation ends (6.2)"},{text:"Taso 2: 2/16 · taso 3: 1/16 · Kilpa 7v7: 3/8"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{date:"2026-10-31",label:"early bird ends (5v5)"},{date:"2026-12-31",label:"free cancellation ends (6.2)"},{text:"Taso 2: 4/16 · taso 3: 3/16 · Kilpa 7v7: 3/8"}], nups:{s:"yes",t:"6.2 Taso 2 (NuPS/Musta)"}, fck:{s:"no"},
     url:"https://talvivantaacup.torneopal.fi/", st:"ok", isNew:true },
   { id:"kjs-kevat-cup", io:"out", name:"KJS Kevät Cup 2027", org:"Karkkilan Jalkapalloseura", start:"2027-05-06", dateNote:"Thursday (Ascension Day)",
     city:"Karkkila", venue:"Harjun tekonurmi (turf)",
@@ -696,7 +698,7 @@ const T = [
     url:"https://www.gameresultsonline.com/karkkilan-jalkapalloseura/kjs-kevat-cup-2027", st:"ok", isNew:true },
   { id:"rosenstrom-cup", io:"in", name:"Fenno Optiikka Rosenström Cup P2016", org:"NuPS · home event", start:"2026-12-12", dateNote:"P2016 tournament; NuPS P17 plays up",
     city:"Nummela", venue:"Auto-Huiput Areena (warm hall)",
-    levels:"P2016 Kilpa 6, Haaste 7, Harraste 6 teams", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"25 min", games:"4", fee:"€225",
+    levels:"P2016 Kilpa 7, Haaste 7, Harraste 6 teams", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"25 min", games:"4", fee:"€225",
     dl:[{text:"Full"}], nups:{s:"yes",t:"P2016 Haaste (NuPS P17, playing up)"}, fck:{s:"no"},
     url:"https://www.fudisturnaus.com/t/fenno-optiikka-rosenstrom-cup-p2016", st:"ok", isNew:true },
   { id:"sarkanniemi-cup", io:"both", ioNote:"Turf fields + Pirkkahalli", name:"Särkänniemi Cup", org:"TPV, Tampere", start:"2027-06-24", end:"2027-06-27", dateText:"Late June 2027 (≈ 24–27.6)", dateNote:"Every late June · 2026 (40th edition) was 25–28.6",
@@ -708,8 +710,13 @@ const T = [
   { id:"espoonlahti-cup", io:"out", name:"Espoonlahti Cup 2027", org:"EPS (Espoon Palloseura)", start:"2027-05-08", end:"2027-05-09", dateNote:"2nd weekend of May · same weekend as Viikingit Kevätfestivaalit",
     city:"Espoo", venue:"Espoonlahden urheilupuisto turf (metro Espoonlahti)",
     levels:"Kilpa, Haaste, Harraste (12 each)", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>", match:"1×25 min", games:"5", fee:"7v7 €200 early · €230 · 5v5 €150 early · €180",
-    dl:[{date:"2026-12-13",label:"early bird ends"},{date:"2027-02-28",label:"free cancellation ends"},{date:"2027-04-11",label:"registration closes"}], nups:{s:"no"}, fck:{s:"no"},
+    dl:[{date:"2026-12-13",label:"early bird ends"},{date:"2027-02-28",label:"free cancellation ends"},{date:"2027-04-11",label:"registration closes"},{text:"Kilpa 2/12 · Haaste 2/12 · Harraste 3/12 (all EPS)"}], nups:{s:"no"}, fck:{s:"no"},
     url:"https://espoonlahticupu10_u13.torneopal.fi/", st:"ok", isNew:true },
+  { id:"etela-karuselli", io:"out", name:"Etelä Karuselli 2027 (spring)", org:"Palloliitto, Southern region", start:"2027-05-08", end:"2027-05-09", dateNote:"Same weekend as Espoonlahti Cup",
+    city:"Helsinki area", venue:"—",
+    levels:"P10 Karuselli", fmt:[], fmtText:"not stated", match:"—", games:"6–7", fee:"—",
+    dl:[{date:"2027-04-19",label:"registration closes"}], nups:{s:"unknown"}, fck:{s:"unknown"},
+    url:"https://tulospalvelu.palloliitto.fi/category/KP10!spletela_kark2027/info", st:"ok", isNew:true },
 ];
 
 const PERIODS = [
@@ -841,7 +848,7 @@ function setupFilters() {
 
 // ---------- Season plan (maintained in this file; ask Claude to update) ----------
 const PLAN_TARGET = 5;
-const PLAN_UPDATED = "19.10.2026";
+const PLAN_UPDATED = "23.10.2026";
 // status: "base" = decided, "maybe" = shortlist
 const PLAN = {
  "helsinki-cup": {
@@ -854,7 +861,7 @@ const PLAN = {
  },
  "kevatturnaus": {
   "status": "base",
-  "note": "Decided: all three teams play. €555 for 3 teams (5v5). Registration opens 1.11.2026, closes 21.3.2027 or when full."
+  "note": "Decided: all three teams play. Register when it opens 1.11.2026: early bird €480 for 3 teams (5v5) until 6.12.2026, then €555. Closes 14.3.2027 or when full."
  },
  "pingviini-cup": {
   "status": "base",
@@ -882,7 +889,7 @@ const PLAN = {
  },
  "hjk-7v7-kevatturnaus": {
   "status": "maybe",
-  "note": "Pajamäki, 7v7. The 2026 edition was 28–29.3; the 2027 date isn't announced."
+  "note": "Confirmed 3–4.4.2027 at Pajamäki and Töölö, 7v7, one day per team, five P10 levels from Kilpa to Harraste. Fee and registration not published yet."
  },
  "helsinki-kick-off-cup": {
   "status": "maybe",
@@ -893,8 +900,8 @@ const PLAN = {
   "note": "Pihlajamäki, Sunday 25.4. All three levels, 5v5, 3 games, €99 per team. NuPS played Kilpa and Haaste here in 2026. Registration opens later."
  },
  "fc-viikingit-kevatfestivaalit": {
-  "status": "base",
-  "note": "Decided: all three teams play. Expected 8–9.5.2027 (2nd weekend of May; date not published yet). P10 played 8v8 in 2026: €125 per team early bird (until mid-January), then €150. Watch for registration this winter. Same weekend as Gnistan Wapputurnaus."
+  "status": "maybe",
+  "note": "Moved to the shortlist. Expected on the same weekend as Espoonlahti Cup (≈ 8–9.5.2027, 2nd weekend of May); 2027 date not published yet. P10 played 8v8 in 2026, €125 early bird (until mid-January), then €150."
  },
  "united-kutsuturnaus": {
   "status": "maybe",
@@ -914,7 +921,7 @@ const PLAN = {
  },
  "talvi-vantaa-cup": {
   "status": "maybe",
-  "note": "Myyrmäki indoor halls. Sat 6.2.2027: 5v5 taso 2 (≈ Palloliitto etelä taso 3) and taso 3 (etelä 4–5), 4 games, €149 per team until 31.10.2026, then €170. Kilpa team: invitation 7v7 series 5–7.3.2027, 5 games, €380. 6.2 is also a PEP futsal day for NuPS/musta and NuPS/punainen."
+  "note": "NuPS/Musta is now registered for Sat 6.2.2027 taso 2 (5v5, 4 games). That clashes with PEP Futsal liiga the same day (NuPS/musta, taso 1). Myyrmäki indoor halls; €149 per team until 31.10.2026, then €170. Kilpa team option: invitation 7v7 series 5–7.3.2027, 5 games, €380."
  },
  "kjs-kevat-cup": {
   "status": "maybe",
@@ -925,8 +932,12 @@ const PLAN = {
   "note": "Overnight trip to Tampere, about 170 km. Expected Thu–Sun ≈ 24–27.6.2027. In 2026 P10 had Kilpa, Haaste and Harraste at 8v8, 2×20 min, at least 6 games; P8–P11 played only Friday morning on Särkänniemi day so teams can visit the park. School lodging, hotels and buses through the tournament. Fee not shown yet."
  },
  "espoonlahti-cup": {
+  "status": "base",
+  "note": "Decided: all three teams play, 8–9.5.2027 at Espoonlahti. Kilpa 7v7 €200, Haaste and Harraste 5v5 €150 each if registered by 13.12.2026 (then €230 / €180). 5 games of 25 min. Free cancellation until 28.2.2027, registration closes 11.4.2027."
+ },
+ "etela-karuselli": {
   "status": "maybe",
-  "note": "Espoonlahti turf fields, 8–9.5.2027. All three levels: Kilpa 7v7 (€200 early), Haaste and Harraste 5v5 (€150 early), 5 games of 25 min. Early bird until 13.12.2026, free cancellation until 28.2.2027. Same weekend as the base tournament Viikingit Kevätfestivaalit (expected 8–9.5), so it's an alternative to it rather than an extra."
+  "note": "Palloliitto Southern region P10 event, 8–9.5.2027 in the Helsinki area, 6–7 games per team. Venue, format and fee not published yet. Registration closes 19.4.2027. Same weekend as the base tournament Espoonlahti Cup."
  }
 };
 const byId = Object.fromEntries(T.map(t => [t.id, t]));
@@ -937,7 +948,7 @@ const HISTORY = {
   "ppj-tuplakupla-cup": "First held 3.10.2026 (44 teams); no earlier editions",
   "kinkunsulatusturnaus": "First held 6.1.2026 (46 teams, P7–P9 only)",
   "hjk-talviturnaus": "2nd edition (1st: 25.1.2026, 64 teams)",
-  "hjk-7v7-kevatturnaus": "First held 28–29.3.2026 (P2015–16, 37 teams)",
+  "hjk-7v7-kevatturnaus": "2nd edition (1st: 28–29.3.2026, P2015–16, 37 teams)",
   "helsinki-kick-off-cup": "First held 18–19.4.2026 (36 teams, 2017 only)",
   "pk-35-helsinki-open": "32nd edition; every 3rd–4th weekend of April",
   "fc-viikingit-kevatfestivaalit": "Every 2nd weekend of May since at least 2023 (2025: 241 teams)",
@@ -986,11 +997,12 @@ function card(t, p) {
 // Entry fees per team: [format, early-bird fee, standard fee]. Order: Kilpa team, Haaste team, Harraste team.
 const ROSTER = { "5v5": 7, "7v7": 10, "8v8": 11, "4v4": 7 };
 const COSTS = {
-  "kevatturnaus": { teams: [["5v5",185,185],["5v5",185,185],["5v5",185,185]], note: "club price €555 for 3 teams" },
+  "kevatturnaus": { teams: [["5v5",160,185],["5v5",160,185],["5v5",160,185]], note: "club price €480 for 3 teams until 6.12.2026, then €555" },
   "porvoo-cup": { teams: [["5v5",120,180],["5v5",120,180],["5v5",120,180]], note: "early bird until 31.12.2026" },
   "kesa-aura-cup": { teams: [["7v7",380,380],["5v5",380,380],["5v5",380,380]], note: "Kilpa 7v7; the third team also plays Haaste 5v5 (no Harraste series)" },
   "helsinki-cup": { teams: [["5v5",395,415],["5v5",395,415],["5v5",395,415]], note: "early bird until 31.12.2026" },
   "hyvinkaan-eloturnaus": { teams: [["7v7",229,269],["5v5",209,239],["5v5",209,239]], note: "Taso 1 7v7; early bird until 31.12.2026 or 4 outside teams" },
+  "espoonlahti-cup": { teams: [["7v7",200,230],["5v5",150,180],["5v5",150,180]], note: "early bird until 13.12.2026 · Kilpa 7v7" },
   "fc-viikingit-kevatfestivaalit": { teams: [["8v8",125,150],["8v8",125,150],["8v8",125,150]], note: "2026 prices · early bird until mid-January · date ≈ 8–9.5" },
   "pingviini-cup": { teams: [["5v5",185,185],["5v5",185,185],["5v5",185,185]], note: "club price €555 for 3 teams" },
 };
@@ -1026,7 +1038,7 @@ function renderCosts(base) {
     <div class="k"><b>${eur(pp[0], 0)}</b><span>Per player, Kilpa team (5v5 = 7, 7v7 = 10, 8v8 = 11 players)</span></div>
     <div class="k"><b>${eur(pp[1], 0)}</b><span>Per player, Haaste team</span></div>
     <div class="k"><b>${eur(pp[2], 0)}</b><span>Per player, Harraste team</span></div>`;
-  document.getElementById("costnote").textContent = "Entry fees only. Travel, meals and tournament passes are not included. Series and leagues (GrIFK Talviliiga, Espoon Talvisarja, PEP Futsal liiga, Länsi-Uudenmaan liiga, Palloliitto) aren't included. Per-player shares assume 7 players in a 5v5 team, 10 in a 7v7 team and 11 in an 8v8 team. Kevätturnaus and Pingviini Cup assume all three teams in 5v5; an Elite 7v7 place costs €395.";
+  document.getElementById("costnote").textContent = "Entry fees only. Travel, meals and tournament passes are not included. Series and leagues (GrIFK Talviliiga, Espoon Talvisarja, PEP Futsal liiga, Länsi-Uudenmaan liiga, Palloliitto) aren't included. Per-player shares assume 7 players in a 5v5 team, 10 in a 7v7 team and 11 in an 8v8 team. Kevätturnaus and Pingviini Cup assume all three teams in 5v5; an Elite 7v7 place costs €345–395.";
 }
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const OVERNIGHT = new Set(["sarkanniemi-cup","kesa-aura-cup","heinacup","kokkola-cup","kuopio-cup"]);
@@ -1039,6 +1051,7 @@ const ENTERED_CAL = [
   { id: "espoon-talvisarja", label: "Espoon Talvisarja", who: "NuPS/musta", teams: ["musta"], days: ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"] },
   { id: "saastopankki-turnaus", label: "Säästöpankki-turnaus (HJS)", who: "NuPS (Kilpa)", teams: ["nups"], days: ["2026-11-21"] },
   { id: "iif-minicup", label: "IIF minicup, Inkoo", who: "NuPS P17 / valkoinen", teams: ["valkoinen"], days: ["2026-11-21"] },
+  { id: "talvi-vantaa-cup", label: "Talvi Vantaa Cup", who: "NuPS/musta, taso 2", teams: ["musta"], days: ["2027-02-06"] },
   { id: "rosenstrom-cup", label: "Rosenström Cup (P2016)", who: "NuPS P17, playing up", teams: ["p17-up"], days: ["2026-12-12"] },
   { id: "pep-futsal-liiga", label: "PEP Futsal liiga", who: "NuPS/musta, taso 1", teams: ["musta"], days: ["2026-10-24","2026-11-28","2027-02-06","2027-03-20"] },
   { id: "pep-futsal-liiga", label: "PEP Futsal liiga", who: "NuPS/punainen, taso 2", teams: ["punainen"], days: ["2026-11-28","2027-01-16","2027-02-06","2027-03-13"] },
@@ -1130,7 +1143,7 @@ const EVENT_DAYS = {
   "talvi-vantaa-cup": ["2027-02-06","2027-03-05","2027-03-06","2027-03-07"],
 };
 // Events where NuPS is entered on only some of the days.
-const ENTERED_DAYS_ONLY = { "iif-minicup": ["2026-11-21"] };
+const ENTERED_DAYS_ONLY = { "iif-minicup": ["2026-11-21"], "talvi-vantaa-cup": ["2027-02-06"] };
 const SEASON_LONG = ["helsingin-talviliiga","winterliiga","pk-35-super-liiga","helsingin-liiga","uudenmaan-junioriliiga"];
 function evKind(t) {
   const p = PLAN[t.id];
