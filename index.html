@@ -345,7 +345,7 @@ footer p { margin: 0; }
   </div>
 
   <div class="view" id="view-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
-    <p class="plan-intro">Base tournaments are the 4–5 events where the whole group plays, one team each at Kilpa, Haaste and Harraste. The shortlist holds candidates still being considered. Plan updated <span id="plan-updated"></span>.</p>
+    <p class="plan-intro">Base tournaments are the 4–5 events where the whole group plays with three teams: NuPS, NuPS/musta and NuPS/valkoinen. (NuPS/punainen plays series and other events.) The shortlist holds candidates still being considered. Plan updated <span id="plan-updated"></span>.</p>
 
     <section class="plan-sec" aria-labelledby="h-cal">
       <h2 id="h-cal">Calendar <small><span class="dot base"></span> base tournaments <span class="dot en"></span> already entered</small></h2>
@@ -921,7 +921,7 @@ const PLAN = {
  },
  "talvi-vantaa-cup": {
   "status": "maybe",
-  "note": "NuPS/Musta is now registered for Sat 6.2.2027 taso 2 (5v5, 4 games). That clashes with PEP Futsal liiga the same day (NuPS/musta, taso 1). Myyrmäki indoor halls; €149 per team until 31.10.2026, then €170. Kilpa team option: invitation 7v7 series 5–7.3.2027, 5 games, €380."
+  "note": "NuPS/Musta is now registered for Sat 6.2.2027 taso 2 (5v5, 4 games). That clashes with PEP Futsal liiga the same day (NuPS/musta, taso 1). Myyrmäki indoor halls; €149 per team until 31.10.2026, then €170. NuPS option: invitation 7v7 series 5–7.3.2027, 5 games, €380."
  },
  "kjs-kevat-cup": {
   "status": "maybe",
@@ -994,7 +994,7 @@ function card(t, p) {
     ${p.note ? `<p class="pnote">${esc(p.note)}</p>` : ""}
   </article>`;
 }
-// Entry fees per team: [format, early-bird fee, standard fee]. Order: Kilpa team, Haaste team, Harraste team.
+// Entry fees per team: [format, early-bird fee, standard fee]. Order: NuPS, NuPS/musta, NuPS/valkoinen.
 const ROSTER = { "5v5": 7, "7v7": 10, "8v8": 11, "4v4": 7 };
 const COSTS = {
   "kevatturnaus": { teams: [["5v5",160,185],["5v5",160,185],["5v5",160,185]], note: "club price €480 for 3 teams until 6.12.2026, then €555" },
@@ -1029,15 +1029,15 @@ function renderCosts(base) {
     return `<tr><td><b>${esc(c.name)}</b><span class="pp small">${esc(c.note)}</span></td>${cells}<td class="n"><b>${eur(sum)}</b></td></tr>`;
   }).join("");
   const T3 = tot.reduce((a, b) => a + b, 0), T3s = totStd.reduce((a, b) => a + b, 0);
-  document.getElementById("costs").innerHTML = `<thead><tr><th>Tournament</th><th class="n">Kilpa team</th><th class="n">Haaste team</th><th class="n">Harraste team</th><th class="n">All 3 teams</th></tr></thead>
+  document.getElementById("costs").innerHTML = `<thead><tr><th>Tournament</th><th class="n">NuPS</th><th class="n">NuPS/musta</th><th class="n">NuPS/valkoinen</th><th class="n">All 3 teams</th></tr></thead>
     <tbody>${body}</tbody>
     <tfoot><tr><td>Season, early-bird prices</td>${tot.map((v, i) => `<td class="n">${eur(v)}<span class="pp">${eur(pp[i], 2)}/player</span></td>`).join("")}<td class="n">${eur(T3)}</td></tr>
     <tr class="std"><td>Season, standard prices</td>${totStd.map((v, i) => `<td class="n">${eur(v)}<span class="pp">${eur(ppStd[i], 2)}/player</span></td>`).join("")}<td class="n">${eur(T3s)}</td></tr></tfoot>`;
   document.getElementById("costsum").innerHTML = `
     <div class="k"><b>${eur(T3)}</b><span>All base tournaments, early bird (${eur(T3s)} at standard prices)</span></div>
-    <div class="k"><b>${eur(pp[0], 0)}</b><span>Per player, Kilpa team (5v5 = 7, 7v7 = 10, 8v8 = 11 players)</span></div>
-    <div class="k"><b>${eur(pp[1], 0)}</b><span>Per player, Haaste team</span></div>
-    <div class="k"><b>${eur(pp[2], 0)}</b><span>Per player, Harraste team</span></div>`;
+    <div class="k"><b>${eur(pp[0], 0)}</b><span>Per player, NuPS (5v5 = 7, 7v7 = 10, 8v8 = 11 players)</span></div>
+    <div class="k"><b>${eur(pp[1], 0)}</b><span>Per player, NuPS/musta</span></div>
+    <div class="k"><b>${eur(pp[2], 0)}</b><span>Per player, NuPS/valkoinen</span></div>`;
   document.getElementById("costnote").textContent = "Entry fees only. Travel, meals and tournament passes are not included. Series and leagues (GrIFK Talviliiga, Espoon Talvisarja, PEP Futsal liiga, Länsi-Uudenmaan liiga, Palloliitto) aren't included. Per-player shares assume 7 players in a 5v5 team, 10 in a 7v7 team and 11 in an 8v8 team. Kevätturnaus and Pingviini Cup assume all three teams in 5v5; an Elite 7v7 place costs €345–395.";
 }
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1049,8 +1049,10 @@ const NO_CLASH = {};
 const ENTERED_CAL = [
   { id: "grifk-mcdonalds-talviliiga", label: "GrIFK Talviliiga", who: "all 3 teams", teams: ["nups","musta","valkoinen"], days: ["2026-10-25","2026-11-15","2027-01-10","2027-01-31","2027-03-07","2027-04-04"] },
   { id: "espoon-talvisarja", label: "Espoon Talvisarja", who: "NuPS/musta", teams: ["musta"], days: ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"] },
-  { id: "saastopankki-turnaus", label: "Säästöpankki-turnaus (HJS)", who: "NuPS (Kilpa)", teams: ["nups"], days: ["2026-11-21"] },
+  { id: "saastopankki-turnaus", label: "Säästöpankki-turnaus (HJS)", who: "NuPS", teams: ["nups"], days: ["2026-11-21"] },
   { id: "iif-minicup", label: "IIF minicup, Inkoo", who: "NuPS P17 / valkoinen", teams: ["valkoinen"], days: ["2026-11-21"] },
+  { id: "practice-eps2-0711", label: "Practice games vs EPS/2", who: "NuPS, 7v7, 2×25 min, 08–10, Espoonlahti TN1", teams: ["nups"], days: ["2026-11-07"], practice: true },
+  { id: "practice-koips-1912", label: "Practice game vs KoiPS", who: "NuPS, 09:45–11:30, Hakunila hall, Vantaa", teams: ["nups"], days: ["2026-12-19"], practice: true },
   { id: "talvi-vantaa-cup", label: "Talvi Vantaa Cup", who: "NuPS/musta, taso 2", teams: ["musta"], days: ["2027-02-06"] },
   { id: "rosenstrom-cup", label: "Rosenström Cup (P2016)", who: "NuPS P17, playing up", teams: ["p17-up"], days: ["2026-12-12"] },
   { id: "pep-futsal-liiga", label: "PEP Futsal liiga", who: "NuPS/musta, taso 1", teams: ["musta"], days: ["2026-10-24","2026-11-28","2027-02-06","2027-03-20"] },
@@ -1174,6 +1176,11 @@ function renderAllCal() {
     const approx = !!t.dateText && (!/^\d/.test(t.dateText) || /expected|\?/.test(t.dateText));
     items.push({ t, kind, a: d(t.start), b: d(t.end || t.start), approx });
   }
+  for (const e of ENTERED_CAL) {
+    if (byId[e.id]) continue;
+    const t = { id: e.id, name: e.label, url: "#cal", nups: { s: "yes" }, dateText: "", city: "" };
+    for (const day of e.days) items.push({ t, kind: "en", a: d(day), b: d(day), approx: false, note: e.who });
+  }
   const rank = { base: 0, en: 1, ot: 2 };
   document.getElementById("longlist").innerHTML = SEASON_LONG.map(id => byId[id]).filter(Boolean).map(t => {
     const span = t.dateText ? t.dateText : `${fi(d(t.start), d(t.start).getFullYear() !== d(t.end || t.start).getFullYear())}–${fi(d(t.end || t.start))}`;
@@ -1200,7 +1207,7 @@ function renderAllCal() {
     const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
       const dd = e.approx ? "≈" : (+e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`);
       const name = e.t.name.replace(/ 20\d\d(–\d\d)?$/, "");
-      const note = e.approx ? ` <span class="ov">· ${esc(e.t.dateText)}</span>` : "";
+      const note = e.approx ? ` <span class="ov">· ${esc(e.t.dateText)}</span>` : e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : "";
       return `<li class="${e.kind === "ot" ? "ot-item" : ""}"><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span><a href="${e.t.url}" target="_blank" rel="noopener">${esc(name)}</a>${note}${tagsFor(e.t, e.notEntered)}</span></li>`;
     }).join("")}</ul>` : `<ul class="mevents"><li class="ov">No events</li></ul>`;
     out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
