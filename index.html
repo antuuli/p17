@@ -705,6 +705,11 @@ const T = [
     feeNote:"School lodging, hotels, buses and meals (€12) available",
     dl:[{text:"2026: registration closed 27.5, free cancellation until 30.5"}], nups:{s:"no",t:"2026: no"}, fck:{s:"no",t:"2026: no"},
     url:"https://sarkanniemicup.torneopal.fi/", st:"est", isNew:true },
+  { id:"espoonlahti-cup", io:"out", name:"Espoonlahti Cup 2027", org:"EPS (Espoon Palloseura)", start:"2027-05-08", end:"2027-05-09", dateNote:"2nd weekend of May · same weekend as Viikingit Kevätfestivaalit",
+    city:"Espoo", venue:"Espoonlahden urheilupuisto turf (metro Espoonlahti)",
+    levels:"Kilpa, Haaste, Harraste (12 each)", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>", match:"1×25 min", games:"5", fee:"7v7 €200 early · €230 · 5v5 €150 early · €180",
+    dl:[{date:"2026-12-13",label:"early bird ends"},{date:"2027-02-28",label:"free cancellation ends"},{date:"2027-04-11",label:"registration closes"}], nups:{s:"no"}, fck:{s:"no"},
+    url:"https://espoonlahticupu10_u13.torneopal.fi/", st:"ok", isNew:true },
 ];
 
 const PERIODS = [
@@ -918,6 +923,10 @@ const PLAN = {
  "sarkanniemi-cup": {
   "status": "maybe",
   "note": "Overnight trip to Tampere, about 170 km. Expected Thu–Sun ≈ 24–27.6.2027. In 2026 P10 had Kilpa, Haaste and Harraste at 8v8, 2×20 min, at least 6 games; P8–P11 played only Friday morning on Särkänniemi day so teams can visit the park. School lodging, hotels and buses through the tournament. Fee not shown yet."
+ },
+ "espoonlahti-cup": {
+  "status": "maybe",
+  "note": "Espoonlahti turf fields, 8–9.5.2027. All three levels: Kilpa 7v7 (€200 early), Haaste and Harraste 5v5 (€150 early), 5 games of 25 min. Early bird until 13.12.2026, free cancellation until 28.2.2027. Same weekend as the base tournament Viikingit Kevätfestivaalit (expected 8–9.5), so it's an alternative to it rather than an extra."
  }
 };
 const byId = Object.fromEntries(T.map(t => [t.id, t]));
@@ -940,6 +949,7 @@ const HISTORY = {
   "porvoo-cup": "Recurring first half of June since 2024 (2025: 120 teams)",
   "hyvinkaan-eloturnaus": "Recurring turn of July/Aug since 2020 (2026: 218 teams)",
   "kesa-aura-cup": "23rd edition in 2026; normally last weekend of June",
+  "espoonlahti-cup": "Held before; expanded to U13 for 2027",
   "sarkanniemi-cup": "40th edition was 25–28.6.2026; held in late June",
 };
 function planBtn(t) {
