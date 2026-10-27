@@ -274,7 +274,7 @@ footer p { margin: 0; }
   <header>
     <div class="eyebrow">Nummelan Palloseura · Pojat 2017 (P9 → P10 / U10)</div>
     <h1>NuPS P17 Tournaments</h1>
-    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 23.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
+    <p class="sub">Tournaments with a series for boys born 2017, October 2026 to August 2027. Details were collected 1.10.2026 and rechecked 27.10.2026 from torneopal.fi, GameResultsOnline and the organizers' own sites. Check the organizer's page before you register.</p>
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Views">
@@ -375,13 +375,13 @@ footer p { margin: 0; }
         <table class="series">
           <thead><tr><th>Team</th><th>Autumn 2026 (P9)</th><th>Spring 2026 (P9)</th><th>Spring 2027 (P10)</th></tr></thead>
           <tbody>
-            <tr><td><b>NuPS</b></td><td>Lohko <b>1</b> · 20 teams, 18 rounds</td><td>Taso <b>1B</b> · 14 teams</td><td class="small">Not assigned yet</td></tr>
-            <tr><td><b>NuPS/musta</b></td><td>Lohko <b>5</b> · 20 teams, 18 rounds</td><td>Taso <b>3B</b> · 16 teams</td><td class="small">Not assigned yet</td></tr>
-            <tr><td><b>NuPS/punainen</b></td><td>Lohko <b>8</b> · 16 teams, 18 rounds</td><td>Taso <b>5B</b> · 14 teams</td><td class="small">Not assigned yet</td></tr>
+            <tr><td><b>NuPS</b></td><td>Lohko <b>1</b> · 20 teams, 18 rounds</td><td>Taso <b>1B</b> · 14 teams</td><td class="small">Registration open · not assigned yet</td></tr>
+            <tr><td><b>NuPS/musta</b></td><td>Lohko <b>5</b> · 20 teams, 18 rounds</td><td>Taso <b>3B</b> · 16 teams</td><td class="small">Registration open · not assigned yet</td></tr>
+            <tr><td><b>NuPS/punainen</b></td><td>Lohko <b>8</b> · 16 teams, 18 rounds</td><td>Taso <b>5B</b> · 14 teams</td><td class="small">Registration open · not assigned yet</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">Lohko numbers run from strongest (1) to most recreational (8). P9 series publish no standings. <a href="https://tulospalvelu.palloliitto.fi/category/P9!etejp26/tables" target="_blank" rel="noopener">Palloliitto tables ↗</a></p>
+      <p class="small">Lohko numbers run from strongest (1) to most recreational (8). P9 series publish no standings. Spring 2027 (“Etelä Jalkapallo 2027”) has P10 and P10 5v5 series with open registration until 31.1.2027; dates and fees not published yet. <a href="https://tulospalvelu.palloliitto.fi/category/P9!etejp26/tables" target="_blank" rel="noopener">Palloliitto tables ↗</a> <a href="https://tulospalvelu.palloliitto.fi/category/P10!etejp27/info" target="_blank" rel="noopener">P10 2027 ↗</a></p>
     </section>
 
     <section class="plan-sec" aria-labelledby="h-lul">
@@ -438,7 +438,7 @@ const T = [
     city:"Helsinki", venue:"Jakomäki-Areena (heated bubble)",
     levels:"Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"Kilpa <b>7v7</b> · Haaste/Harraste <b>5v5</b>",
     match:"1×25 min", games:"2 per day", fee:"€65 per day",
-    dl:[{text:"Teams so far: 7.11: 11 · 19.12: 6 · 13.2: 11"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"unknown"},
+    dl:[{text:"Teams so far: 7.11: 10 · 19.12: 6 · 13.2: 11 · 7.11 schedule out (group games 10:30–13:30)"}], nups:{s:"no",t:"not on 7.11 list"}, fck:{s:"unknown"},
     url:"https://www.fckontu.fi/seura/3293/italiiga", st:"ok" },
 
   { id:"espoon-talvisarja", name:"Espoon Talvisarja 2026–27", io:"in", org:"EPS · season series", start:"2026-11-08", end:"2027-03-21", dateText:"8.11 · 29.11 · 10.1 · 31.1 · 7.3 · 21.3", dateNote:"Sundays · 10.1 and 7.3 clash with GrIFK Talviliiga (NuPS/musta); 31.1 very tight",
@@ -493,10 +493,10 @@ const T = [
     match:"25 min", games:"6", fee:"—", dl:[{text:"Not published"}],
     nups:{s:"no",t:"2026: no"}, fck:{s:"unknown"}, url:"https://helsinkickoff.torneopal.fi/", st:"est" },
 
-  { id:"pk-35-helsinki-open", name:"PK-35 Helsinki Open 2027", io:"out", org:"PK-35", start:"2027-04-25", dateNote:"P2017 plays Sunday",
+  { id:"pk-35-helsinki-open", name:"PK-35 Helsinki Open 2027", io:"out", org:"PK-35", start:"2027-04-17", end:"2027-04-18", dateNote:"Two days · P2014–2017 play 8v8 (the 24–25.4 5v5 event is for 2018–2021 only)",
     city:"Helsinki", venue:"Pihlajamäki",
-    levels:"Kilpa, Haaste, Harraste (2026)", fmt:["5v5"], fmtText:"<b>5v5</b>", match:"1×25 min", games:"3", fee:"€99",
-    dl:[{text:"Registration opens later"},{date:"2026-12-31",label:"free cancellation ends (after registering)"}], nups:{s:"prev",t:"2026: Kilpa + Haaste (Punainen)"}, fck:{s:"unknown"},
+    levels:"Kilpa, Haaste, Harraste", fmt:["8v8"], fmtText:"<b>8v8</b>", match:"1×25 min", games:"5", fee:"€169",
+    dl:[{text:"Open"},{date:"2027-02-15",label:"free cancellation ends (€25 handling fee if paid)"}], nups:{s:"prev",t:"2026: Kilpa + Haaste (Punainen)"}, fck:{s:"unknown"},
     url:"https://juniorit.pk-35.fi/toiminta/turnaukset/", st:"ok" },
 
   { id:"fc-viikingit-kevatfestivaalit", name:"FC Viikingit Kevätfestivaalit", io:"out", org:"FC Viikingit", start:"2027-05-08", end:"2027-05-09", dateText:"May 2027 (≈ 8–9.5)", dateNote:"Every May since 2023 · 2026 was 9–10.5",
@@ -507,7 +507,7 @@ const T = [
 
   { id:"kevatturnaus", name:"Kevätturnaus 2027", io:"out", org:"Käpylän Pallo", start:"2027-05-29", end:"2027-05-30", city:"Helsinki", venue:"Käpylän urheilupuisto & KäPa Campus",
     levels:"Elite, Kilpa, Haaste, Harraste", fmt:["5v5","7v7"], fmtText:"<b>5v5</b> · Elite <b>7v7</b>",
-    match:"18 min (5v5) · 25 min (7v7)", games:"6", fee:"Early bird: 5v5 €190 · 2 teams €330 · 3 €480 · Elite €345 (later €220 / €380 / €555 / €395)",
+    match:"18 min (5v5) · 25 min (7v7)", games:"6", fee:"Early bird: 5v5 €190 · 2 teams €350 · 3 €480 · 4 €600 · Elite €345 (later €220 / €380 / €555 / €700 / €395)",
     dl:[{date:"2026-11-01",label:"registration opens"},{date:"2026-12-06",label:"early bird ends"},{date:"2027-03-14",label:"registration closes (or when full)"}],
     nups:{s:"notopen"}, fck:{s:"unknown"}, url:"https://kevatturnaus.com/", st:"ok" },
 
@@ -582,7 +582,7 @@ const T = [
     url:"https://itamericup.torneopal.fi/", st:"ok" },
 
   { id:"kuopio-cup", name:"Kuopio Cup 2027", io:"out", org:"Kuopio Cup", start:"2027-08-06", end:"2027-08-08", city:"Kuopio", venue:"—",
-    levels:"Taso 1, Taso 2–3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>", match:"—", games:"—", fee:"€299 (early €229)", feeNote:"School lodging + meals €119 (2 nights) / €79 (1 night) per person",
+    levels:"Taso 1, Taso 2–3", fmt:["5v5","7v7"], fmtText:"Taso 1 <b>7v7</b> · Taso 2–3 <b>5v5</b>", match:"—", games:"—", fee:"€299 (early €229)", feeNote:"Club fee page now says €319 for 2016–2017 with no early bird, check · School lodging + meals €119 (2 nights) / €79 (1 night) per person",
     dl:[{date:"2027-01-14",label:"early bird ends"},{date:"2027-06-01",label:"registration closes (or when full)"}], nups:{s:"no"}, fck:{s:"unknown"},
     url:"https://kuopiocup.torneopal.fi/", st:"ok" },
 
@@ -850,7 +850,7 @@ function setupFilters() {
 
 // ---------- Season plan (maintained in this file; ask Claude to update) ----------
 const PLAN_TARGET = 5;
-const PLAN_UPDATED = "23.10.2026";
+const PLAN_UPDATED = "27.10.2026";
 // status: "base" = decided, "maybe" = shortlist
 const PLAN = {
  "helsinki-cup": {
@@ -899,7 +899,7 @@ const PLAN = {
  },
  "pk-35-helsinki-open": {
   "status": "maybe",
-  "note": "Pihlajamäki, Sunday 25.4. All three levels, 5v5, 3 games, €99 per team. NuPS played Kilpa and Haaste here in 2026. Registration opens later."
+  "note": "Now 17–18.4.2027 (two days) and 8v8 for P2017: all three levels, 5 games, €169 per team. NuPS played Kilpa and Haaste here in 2026 (5v5). Registration is open; free cancellation until 15.2.2027."
  },
  "fc-viikingit-kevatfestivaalit": {
   "status": "maybe",
