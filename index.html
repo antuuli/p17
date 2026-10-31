@@ -140,6 +140,8 @@ footer p { margin: 0; }
 .mgrid .day.today { outline: 1.5px solid var(--warn); }
 .mgrid .day.en { background: var(--en); color: var(--bg); font-weight: 700; }
 .mgrid .day.clash { box-shadow: inset 0 -3px 0 var(--warn); }
+.mgrid .day.plfree { outline: 1.5px dashed var(--accent); outline-offset: -1px; }
+.dot.plfree { background: transparent; border: 1.5px dashed var(--accent); border-radius: 2px; box-sizing: border-box; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; }
 .dot.base { background: var(--accent); }
 .dot.en { background: var(--en); }
@@ -335,7 +337,7 @@ footer p { margin: 0; }
   </div>
 
   <div class="view" id="view-cal" role="tabpanel" aria-labelledby="tab-cal" hidden>
-    <p class="plan-intro">Every tournament and series on this page, month by month. Filled days: <span class="dot base"></span> base tournament, <span class="dot en"></span> NuPS already entered, <span class="dot ot"></span> other events. Events with only an approximate date are listed under their month with ≈ and not marked on a day.</p>
+    <p class="plan-intro">Every tournament and series on this page, month by month. Filled days: <span class="dot base"></span> base tournament, <span class="dot en"></span> NuPS already entered, <span class="dot ot"></span> other events. <span class="dot plfree"></span> Dashed weekends have no Palloliitto series games in 2027 (P10: game weeks 16–24 and 33–41). Events with only an approximate date are listed under their month with ≈ and not marked on a day.</p>
     <section class="plan-sec" aria-labelledby="h-long">
       <h2 id="h-long">Season-long series <small>no single game days on this calendar</small></h2>
       <ul class="longlist" id="longlist"></ul>
@@ -347,9 +349,9 @@ footer p { margin: 0; }
     <p class="plan-intro">Base tournaments are the 4–5 events where the whole group plays with three teams: NuPS, NuPS/musta and NuPS/valkoinen. (NuPS/punainen plays series and other events.) The shortlist holds candidates still being considered. Plan updated <span id="plan-updated"></span>.</p>
 
     <section class="plan-sec" aria-labelledby="h-cal">
-      <h2 id="h-cal">Calendar <small><span class="dot base"></span> base tournaments <span class="dot en"></span> already entered</small></h2>
+      <h2 id="h-cal">Calendar <small><span class="dot base"></span> base tournaments <span class="dot en"></span> already entered <span class="dot plfree"></span> no Palloliitto series games</small></h2>
       <div class="cal" id="cal"></div>
-      <p class="small">Game dates for the Palloliitto series (spring 2027) and Länsi-Uudenmaan liiga 2027 aren't known yet, so they're not on the calendar.</p>
+      <p class="small"><b>Palloliitto 2027 (P10, 5v5):</b> game weeks 16–24 in spring and 33–41 in autumn, 6 game rounds in each. Dashed weekends have no series games: weeks 17, 18, 20, 22, 35 and 37, plus weeks 40–41 (9–10.10 and 16–17.10.2027) after this calendar ends. Kilpa and taso 1–2 play Fri–Sun (1×25 min games); taso 3 and lower play Mon–Sun, weekdays recommended (1×20 min). Game times aren't published yet. Länsi-Uudenmaan liiga 2027 dates aren't known yet either.</p>
     </section>
 
     <section class="plan-sec" aria-labelledby="h-cost">
@@ -381,7 +383,7 @@ footer p { margin: 0; }
           </tbody>
         </table>
       </div>
-      <p class="small">Lohko numbers run from strongest (1) to most recreational (8). P9 series publish no standings. Spring 2027 (“Etelä Jalkapallo 2027”) has P10 and P10 5v5 series with open registration until 31.1.2027; dates and fees not published yet. <a href="https://tulospalvelu.palloliitto.fi/category/P9!etejp26/tables" target="_blank" rel="noopener">Palloliitto tables ↗</a> <a href="https://tulospalvelu.palloliitto.fi/category/P10!etejp27/info" target="_blank" rel="noopener">P10 2027 ↗</a></p>
+      <p class="small">Lohko numbers run from strongest (1) to most recreational (8). P9 series publish no standings. Spring 2027 (“Etelä Jalkapallo 2027”) has P10 and P10 5v5 series with open registration until 31.1.2027. P10 plays 5v5 mini-tournaments: game weeks 16–24 and 33–41, 6 rounds in each, no series games on the weekends of weeks 17, 18, 20, 22, 35, 37, 40 and 41. Game times and fees not published yet. <a href="https://tulospalvelu.palloliitto.fi/category/P9!etejp26/tables" target="_blank" rel="noopener">Palloliitto tables ↗</a> <a href="https://tulospalvelu.palloliitto.fi/category/P10!etejp27/info" target="_blank" rel="noopener">P10 2027 ↗</a></p>
     </section>
 
     <section class="plan-sec" aria-labelledby="h-lul">
@@ -850,7 +852,7 @@ function setupFilters() {
 
 // ---------- Season plan (maintained in this file; ask Claude to update) ----------
 const PLAN_TARGET = 5;
-const PLAN_UPDATED = "27.10.2026";
+const PLAN_UPDATED = "31.10.2026";
 // status: "base" = decided, "maybe" = shortlist
 const PLAN = {
  "helsinki-cup": {
@@ -1048,6 +1050,29 @@ const OVERNIGHT = new Set(["sarkanniemi-cup","kesa-aura-cup","heinacup","kokkola
 const CAL_START = new Date(2026, 9, 1), CAL_END = new Date(2027, 8, 30);
 // Same-team double bookings checked against game times: no real clash on these days.
 const NO_CLASH = {};
+// Palloliitto Etelä 2027, P10 (5v5): game weeks and game-free weekends (ISO week numbers).
+const PL_WEEKS = [[16, 24], [33, 41]], PL_FREE_WEEKS = [17, 18, 20, 22, 35, 37, 40, 41];
+function isoWeek(dt) {
+  const t = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + 3 - (dt.getDay() + 6) % 7);
+  return 1 + Math.round((t - new Date(t.getFullYear(), 0, 4)) / 6048e5 - (3 - (new Date(t.getFullYear(), 0, 4).getDay() + 6) % 7) / 7);
+}
+// Month-list lines for the game-free Palloliitto weekends (keyed by Saturday).
+function plFreeRows(y, mo, dim) {
+  const rows = [];
+  for (let day = 1; day <= dim; day++) {
+    const sat = new Date(y, mo, day);
+    if (sat.getDay() !== 6 || plWeekend(sat) !== "free") continue;
+    const sun = new Date(y, mo, day + 1);
+    const dd = sun.getMonth() === mo ? `${day}.–${sun.getDate()}.${mo+1}.` : `${day}.${mo+1}.–${sun.getDate()}.${sun.getMonth()+1}.`;
+    rows.push({ a: sat, html: `<li><span class="dot plfree"></span><span class="dd">${dd}</span><span class="ov">No Palloliitto series games (week ${isoWeek(sat)})</span></li>` });
+  }
+  return rows;
+}
+function plWeekend(dt) {
+  if (dt.getFullYear() !== 2027 || (dt.getDay() !== 0 && dt.getDay() !== 6)) return "";
+  const w = isoWeek(dt);
+  return PL_FREE_WEEKS.includes(w) ? "free" : PL_WEEKS.some(([a, b]) => w >= a && w <= b) ? "series" : "";
+}
 const ENTERED_CAL = [
   { id: "grifk-mcdonalds-talviliiga", label: "GrIFK Talviliiga", who: "all 3 teams", teams: ["nups","musta","valkoinen"], days: ["2026-10-25","2026-11-15","2027-01-10","2027-01-31","2027-03-07","2027-04-04"] },
   { id: "espoon-talvisarja", label: "Espoon Talvisarja", who: "NuPS/musta", teams: ["musta"], days: ["2026-11-08","2026-11-29","2027-01-10","2027-01-31","2027-03-07","2027-03-21"] },
@@ -1083,18 +1108,28 @@ function renderCalendar(base) {
       const isoD = `${y}-${String(mo+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
       if (!NO_CLASH[isoD] && hits.some((h, i) => hits.some((o, j) => j > i && o.teams.some(x => h.teams.includes(x))))) cls.push("clash");
       if (+dt === +TODAY) cls.push("today");
-      cells.push(`<span class="${cls.join(" ")}"${hits.length ? ` title="${esc(hits.map(h => h.name).join(" + "))}"` : ""}>${day}</span>`);
+      const pl = plWeekend(dt) === "free";
+      if (pl) cls.push("plfree");
+      const tip = hits.map(h => h.name).concat(pl ? ["No Palloliitto series games"] : []).join(" + ");
+      cells.push(`<span class="${cls.join(" ")}"${tip ? ` title="${esc(tip)}"` : ""}>${day}</span>`);
     }
     const mStart = new Date(y, mo, 1), mEnd = new Date(y, mo, dim);
     const inMonth = evs.filter(e => e.a <= mEnd && e.b >= mStart).sort((p, q) => p.a - q.a);
-    const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
+    const rows = inMonth.map(e => {
       const dd = +e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`;
       const others = evs.filter(o => o !== e && o.a <= e.b && o.b >= e.a);
       const iso = `${e.a.getFullYear()}-${String(e.a.getMonth()+1).padStart(2,"0")}-${String(e.a.getDate()).padStart(2,"0")}`;
       const clash = others.some(o => o.teams.some(x => e.teams.includes(x))) && !NO_CLASH[iso];
       const flag = NO_CLASH[iso] && others.length ? ` <span class="ov">· ${NO_CLASH[iso]}</span>` : clash ? ` <span class="cl">· clash</span>` : others.some(o => o.ev !== e.ev) ? ` <span class="ov">· same day, other team</span>` : "";
-      return `<li><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span>${esc(e.name)}${e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : ""}${flag}</span></li>`;
-    }).join("")}</ul>` : `<ul class="mevents"><li class="ov">Nothing planned</li></ul>`;
+      const serWk = [];
+      for (let x = new Date(e.a); x <= e.b; x = new Date(x.getFullYear(), x.getMonth(), x.getDate() + 1))
+        if (plWeekend(x) === "series" && !serWk.includes(isoWeek(x))) serWk.push(isoWeek(x));
+      const plFlag = e.kind === "base" && serWk.length ? ` <span class="cl">· Palloliitto series weekend (week ${serWk.join(", ")})</span>` : "";
+      return { a: e.a, html: `<li><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span>${esc(e.name)}${e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : ""}${flag}${plFlag}</span></li>` };
+    });
+    rows.push(...plFreeRows(y, mo, dim));
+    rows.sort((p, q) => p.a - q.a);
+    const list = rows.length ? `<ul class="mevents">${rows.map(r => r.html).join("")}</ul>` : `<ul class="mevents"><li class="ov">Nothing planned</li></ul>`;
     out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
   }
   el.innerHTML = out.join("");
@@ -1200,16 +1235,22 @@ function renderAllCal() {
       if (dt.getDay() === 0 || dt.getDay() === 6) cls.push("we");
       if (hits.length) cls.push(hits.some(h => h.kind === "base") ? "ev" : hits.some(h => h.kind === "en") ? "en" : "ot");
       if (+dt === +TODAY) cls.push("today");
-      cells.push(`<span class="${cls.join(" ")}"${hits.length ? ` title="${esc(hits.map(h => h.t.name).join(" + "))}"` : ""}>${day}</span>`);
+      const pl = plWeekend(dt) === "free";
+      if (pl) cls.push("plfree");
+      const tip = hits.map(h => h.t.name).concat(pl ? ["No Palloliitto series games"] : []).join(" + ");
+      cells.push(`<span class="${cls.join(" ")}"${tip ? ` title="${esc(tip)}"` : ""}>${day}</span>`);
     }
     const inMonth = items.filter(e => e.a <= mEnd && e.b >= mStart)
       .sort((p, q) => (p.approx - q.approx) || (p.a - q.a) || (rank[p.kind] - rank[q.kind]));
-    const list = inMonth.length ? `<ul class="mevents">${inMonth.map(e => {
+    const rows = inMonth.map(e => {
       const dd = e.approx ? "≈" : (+e.a === +e.b ? `${e.a.getDate()}.${e.a.getMonth()+1}.` : `${e.a.getDate()}.–${e.b.getDate()}.${e.b.getMonth()+1}.`);
       const name = e.t.name.replace(/ 20\d\d(–\d\d)?$/, "");
       const note = e.approx ? ` <span class="ov">· ${esc(e.t.dateText)}</span>` : e.note ? ` <span class="ov">· ${esc(e.note)}</span>` : "";
-      return `<li class="${e.kind === "ot" ? "ot-item" : ""}"><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span><a href="${e.t.url}" target="_blank" rel="noopener">${esc(name)}</a>${note}${tagsFor(e.t, e.notEntered)}</span></li>`;
-    }).join("")}</ul>` : `<ul class="mevents"><li class="ov">No events</li></ul>`;
+      return { a: e.approx ? new Date(y, mo, 99) : e.a, html: `<li class="${e.kind === "ot" ? "ot-item" : ""}"><span class="dot ${e.kind}"></span><span class="dd">${dd}</span><span><a href="${e.t.url}" target="_blank" rel="noopener">${esc(name)}</a>${note}${tagsFor(e.t, e.notEntered)}</span></li>` };
+    });
+    rows.push(...plFreeRows(y, mo, dim));
+    rows.sort((p, q) => p.a - q.a);
+    const list = rows.length ? `<ul class="mevents">${rows.map(r => r.html).join("")}</ul>` : `<ul class="mevents"><li class="ov">No events</li></ul>`;
     out.push(`<div class="month"><h3>${MONTHS[mo]} ${y}</h3><div class="mgrid">${cells.join("")}</div>${list}</div>`);
   }
   document.getElementById("allcal").innerHTML = out.join("");
